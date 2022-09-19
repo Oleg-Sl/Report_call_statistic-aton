@@ -90,7 +90,7 @@ def get_url_company(id_company):
         token_app = json.load(secrets_file)
 
     domain = token_app.get("domain", "bits24.bitrix24.ru")
-    return f"https://{domain}/crm/company/details/{id_user}/"
+    return f"https://{domain}/crm/company/details/{id_company}/"
 
 
 # преобразование даты к виду для сохранения в БД

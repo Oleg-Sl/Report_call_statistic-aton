@@ -22,7 +22,7 @@ from collections import Counter
 
 from .tasks import activity_task, calls_task, user_task
 
-handler = logging.handlers.TimedRotatingFileHandler('./logs/error.log', when='D', interval=1, encoding="cp1251")
+handler = logging.handlers.TimedRotatingFileHandler('./logs/error.log', when='D', interval=1, encoding="cp1251", backupCount=15)
 logger_formatter = logging.Formatter(fmt='[%(asctime)s] %(levelname).1s %(message)s', datefmt='%Y.%m.%d %H:%M:%S')
 handler.setFormatter(logger_formatter)
 logger = logging.getLogger(__name__)
@@ -31,7 +31,7 @@ logger.addHandler(handler)
 
 logger_error = logging.getLogger('success')
 logger_error.setLevel(logging.INFO)
-fh_success = logging.handlers.TimedRotatingFileHandler('./logs/success.log', when='D', interval=1, encoding="cp1251")
+fh_success = logging.handlers.TimedRotatingFileHandler('./logs/success.log', when='D', interval=1, encoding="cp1251", backupCount=15)
 formatter = logging.Formatter('[%(asctime)s] %(levelname).1s %(message)s')
 fh_success.setFormatter(formatter)
 logger_error.addHandler(fh_success)
@@ -39,7 +39,7 @@ logger_error.addHandler(fh_success)
 # логгер входные данные событий от Битрикс
 logger_tasks_access = logging.getLogger('tasks_access')
 logger_tasks_access.setLevel(logging.INFO)
-fh_tasks_access = logging.handlers.TimedRotatingFileHandler('./logs/tasks/access.log', when='D', interval=1)
+fh_tasks_access = logging.handlers.TimedRotatingFileHandler('./logs/tasks/access.log', when='D', interval=1, backupCount=15)
 formatter_tasks_access = logging.Formatter('[%(asctime)s] %(levelname).1s %(message)s')
 fh_tasks_access.setFormatter(formatter_tasks_access)
 logger_tasks_access.addHandler(fh_tasks_access)

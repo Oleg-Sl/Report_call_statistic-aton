@@ -28,7 +28,7 @@ from .serializers import (
 # логгер успешного сохранения данных
 logger_tasks_success = logging.getLogger('tasks_success')
 logger_tasks_success.setLevel(logging.INFO)
-fh_tasks_success = logging.handlers.TimedRotatingFileHandler('./logs/tasks/success.log', when='D', interval=1)
+fh_tasks_success = logging.handlers.TimedRotatingFileHandler('./logs/tasks/success.log', when='D', interval=1, backupCount=15)
 formatter_tasks_success = logging.Formatter('[%(asctime)s] %(levelname).1s %(message)s')
 fh_tasks_success.setFormatter(formatter_tasks_success)
 logger_tasks_success.addHandler(fh_tasks_success)
@@ -36,7 +36,7 @@ logger_tasks_success.addHandler(fh_tasks_success)
 # логгер ошибок сохранения данных
 logger_tasks_error = logging.getLogger('tasks_error')
 logger_tasks_error.setLevel(logging.INFO)
-fh_tasks_error = logging.handlers.TimedRotatingFileHandler('./logs/tasks/error.log', when='D', interval=1)
+fh_tasks_error = logging.handlers.TimedRotatingFileHandler('./logs/tasks/error.log', when='D', interval=1, backupCount=15)
 formatter_tasks_error = logging.Formatter('[%(asctime)s] %(levelname).1s %(message)s')
 fh_tasks_error.setFormatter(formatter_tasks_error)
 logger_tasks_error.addHandler(fh_tasks_error)
@@ -184,8 +184,10 @@ def user_task(user):
 
 # получение или сохранение активности
 def update_or_save_activity(id_activity, active=True):
+    time_start = time.time()
     # результат выполнения запроса на получение данных активности
     result_req_activity = bx24.call("crm.activity.get", {"id": id_activity})
+    time_get_activity = time.time()
 
     if not result_req_activity or "result" not in result_req_activity:
         logger_tasks_error.error({
@@ -250,6 +252,8 @@ def update_or_save_activity(id_activity, active=True):
         company_id = data_activity["OWNER_ID"]
         data_activity["OWNER_NAME"] = data.get("result", {}).get("TITLE", None)
 
+    time_get_company_id = time.time()
+
     # если id компании владельца активности не найден
     if not company_id:
         logger_tasks_error.error({
@@ -276,6 +280,8 @@ def update_or_save_activity(id_activity, active=True):
         logger_tasks_success.info({
             "message": "Активность успешно сохранена",
             "id_activity": id_activity,
+            "duration_get_activity": time_get_company_id - time_start,
+            "duration_get_comany":  time_get_activity - time_get_company_id,
             "active": active,
             "result": serializer.data,
         })
@@ -284,7 +290,9 @@ def update_or_save_activity(id_activity, active=True):
     logger_tasks_error.error({
         "error": serializer.errors,
         "message": "Ошибка серриализации данных в объект активности",
-        "id_activity": id_activity
+        "id_activity": id_activity,
+        "duration_get_activity": time_get_company_id - time_start,
+        "duration_get_comany": time_get_activity - time_get_company_id
     })
     return serializer.errors
 
