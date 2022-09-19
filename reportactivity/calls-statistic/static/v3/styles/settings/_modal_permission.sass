@@ -1,0 +1,85 @@
+@import ../elements/spinner_floating_circle
+
+
+// Modal window - парва доступа
+#modalPermission
+    
+    table
+        display: grid
+        grid-template-columns: 300px 1fr 1fr 1fr 1fr
+        width: 100%
+        thead
+            display: contents
+            tr
+                display: contents
+            tr th
+                overflow: hidden
+                text-overflow: ellipsis
+                border: 1px solid #dee2e6 !important
+                // font-size: 12px
+                text-align: center
+                text-transform: uppercase
+                color: #746c6c
+                background: #e5f0ff
+            tr:first-child th
+                grid-column: 1/6
+        tbody
+            display: contents
+            tr
+                display: contents
+            tr td
+                padding: 0 15px
+                overflow: hidden
+                text-overflow: ellipsis
+                border-width: 1px 1px
+                border-style: solid
+                border-color: #dee2e6
+            tr td select
+                width: 100%
+                font-size: 14px
+                background: none
+                border: none
+                border-radius: 0
+            .permission-department td
+                display: flex
+                justify-content: space-between
+                border-width: 1px 1px
+                grid-column: 1/6
+                // background: #fcf8ff
+            .permission-department td p
+                display: inline-block
+                margin: 0
+                color: #0d6efd
+                text-decoration: underline
+                font-size: 18px
+                cursor: pointer
+                width: fit-content
+                &:hover
+                    color: #0a58ca
+            .permission-department td .department-status-collapse
+                transition: transform 0.2s
+            .permission-department-off
+                .department-status-collapse
+                    transform: rotate(180deg)
+            .row-collaps td
+                height: 0
+                padding: 0 1px
+                border-width: 0 1px
+            tr:hover
+                td, td select
+                    background: #efefef
+            .download-data td #floatingCirclesG
+                display: block
+
+    .permission-note
+        margin-top: 25px
+        .permission-note-header i
+            font-weight: 700
+        .permission-note-item
+            margin-top: 10px
+        .permission-note-item p
+            margin: 0
+        .permission-note-item ul
+            margin: 0
+            list-style-type: none
+     

@@ -1,0 +1,85 @@
+// Спиннер - вращающиеся круги
+#floatingCirclesG
+    position: relative
+    width: 26px
+    height: 26px
+    -webkit-transform: scale(0.6)
+    transform: scale(0.6)
+    display: none
+    .f_circleG
+        position: absolute
+        background-color: rgb(255,255,255)
+        height: 5px
+        width: 5px
+        border-radius: 2px
+        animation-name: f_fadeG
+        animation-duration: 1.2s
+        animation-iteration-count: infinite
+        animation-direction: normal
+    #frotateG_01
+        left: 0
+        top: 10px
+        animation-delay: 0.45s
+    #frotateG_02
+        left: 3px
+        top: 3px
+        animation-delay: 0.6s
+    #frotateG_03
+        left: 10px
+        top: 0
+        animation-delay: 0.75s
+    #frotateG_04
+        right: 3px
+        top: 3px
+        animation-delay: 0.9s
+    #frotateG_05
+        right: 0
+        top: 10px
+        animation-delay: 1.05s
+    #frotateG_06
+        right: 3px
+        bottom: 3px
+        animation-delay: 1.2s
+    #frotateG_07
+        left: 10px
+        bottom: 0
+        animation-delay: 1.35s
+    #frotateG_08
+        left: 3px
+        bottom: 3px
+        animation-delay: 1.5s
+
+@keyframes f_fadeG
+	0%
+		background-color: rgb(122,122,122)
+	
+	100%
+		background-color: rgb(255,255,255)
+
+@-o-keyframes f_fadeG
+	0%
+		background-color: rgb(122,122,122)
+	
+	100%
+		background-color: rgb(255,255,255)
+	
+@-ms-keyframes f_fadeG
+	0%
+		background-color: rgb(122,122,122)
+	
+	100%
+		background-color: rgb(255,255,255)
+	
+@-webkit-keyframes f_fadeG
+	0%
+		background-color: rgb(122,122,122)
+	
+	100%
+		background-color: rgb(255,255,255)
+	
+@-moz-keyframes f_fadeG
+	0%
+		background-color: rgb(122,122,122)
+	
+	100%
+		background-color: rgb(255,255,255)

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        {% load static %}
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static 'v3/styles/style.css' %}">
+
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="">
+            <div class="header">
+                <div class="header-menu">
+                    <nav>
+                        <div class="nav header-menu-nav">
+                            <button class="nav-link active" id="nav-month-tab" data-bs-toggle="tab" data-bs-target="#nav-month" type="button" role="tab" aria-controls="nav-month" aria-selected="true">Нормирование</button>
+                            <button class="nav-link" id="nav-days-tab" data-bs-toggle="tab" data-bs-target="#nav-days" type="button" role="tab" aria-controls="nav-days" aria-selected="false">План/Факт</button>
+                        </div>
+                    </nav>
+                </div>
+                <div class="header-settings">
+                    <i class="bi bi-gear-fill" data-bs-toggle="dropdown" aria-expanded="false" title="Настройки"></i>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#modalPermission">Права доступа</button></li>
+                        <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#modalSelectDepartAndEmploye">Выбор отделов и сотрудников для сбора статистики</button></li>
+                        <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#modalCalendar">Календарь</button></li>
+                        <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#modalOtherSettings">Прочее</button></li>
+                        <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#modalUpdateEmploye">Обновить данные сотрудников</button></li>
+                        <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#modalUpdateData">Обновить данные статистики</button></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-content" id="nav-tabContent">
+                <!-- Блок "НОРМИРОВАНИЕ" -->
+                <div class="tab-pane fade show active month" id="nav-month" role="tabpanel" aria-labelledby="nav-month-tab">
+                    <!-- Фильтр -->
+                    <div id="tableByMonthFilter">
+                        <div class="input-group input-group-sm mb-3 table-by-month-container-filter-year">
+                            <label class="input-group-text" for="tableByMonthSelectYear">Год</label>
+                            <select class="form-select table-by-month-filter-year" id="tableByMonthSelectYear">
+                                <!-- Список годов -->
+                            </select>
+                        </div>
+                        <div class="get-statistic-by-month">
+                            <button type="button" class="btn btn-outline-secondary btn-sm">Получить</button>
+                        </div>
+                    </div>
+
+                    <!-- Таблица со статистикой -->
+                    <table class="table-bordered" id="tableStatisticMonth">
+                        <!-- Здесь вывод таблицы -->
+                    </table>
+
+                    <!-- Спиннер загрузки данных таблицы -->
+                    <div id="tableByMonthSpinner">
+                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden">Загрузка...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Блок "ПЛАН/ФАКТ" -->
+                <div class="tab-pane fade days" id="nav-days" role="tabpanel" aria-labelledby="nav-days-tab">
+                    <!-- Фильтр -->
+                    <div id="tableByDayFilter">
+                        <div class="input-group input-group-sm mb-3">
+                            <label class="input-group-text" for="tableByDaySelectYear">Год</label>
+                            <select class="form-select table-by-day-filter-year" id="tableByDaySelectYear">
+                                <!-- Список годов -->
+                            </select>
+                        </div>
+                        <div class="input-group input-group-sm mb-3 ">
+                            <label class="input-group-text" for="inputGroupSelect02">Месяц</label>
+                            <select class="form-select table-by-day-filter-month" id="inputGroupSelect02">
+                                <option value="1">Январь</option>
+                                <option value="2">Февраль</option>
+                                <option value="3">Март</option>
+                                <option value="4">Апрель</option>
+                                <option value="5">Май</option>
+                                <option value="6">Июнь</option>
+                                <option value="7">Июль</option>
+                                <option value="8">Август</option>
+                                <option value="9">Сентябрь</option>
+                                <option value="10">Октябрь</option>
+                                <option value="11">Ноябрь</option>
+                                <option value="12">Декабрь</option>
+                            </select>
+                        </div>
+                        <div class="get-statistic-by-day">
+                            <button type="button" class="btn btn-outline-secondary btn-sm">Получить</button>
+                        </div>
+                    </div>
+
+                    <!-- Таблица со статистикой -->
+                    <table class="table-bordered" id="tableStatisticDay">
+                        <!-- Здесь вывод таблицы -->
+                    </table>
+
+                    <!-- Спиннер загрузки данных таблицы -->
+                    <div id="tableByDaySpinner">
+                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden">Загрузка...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal window - права доступа -->
+        <div class="modal fade" id="modalPermission" tabindex="-1" aria-labelledby="modalPermissionLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalPermissionLabel">Права доступа</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modalPermissionContainer">
+                            <table class="">
+                                <!--  -->
+                            </table>
+                            <div class="permission-note">
+                                <div class="permission-note-header"><i>Примечания:</i></div>
+                                <div class="permission-note-item">
+                                    <p>[1] &ndash; доступ к таблице:</p>
+                                    <ul>
+                                        <li>-&nbsp;<i>"Читатель"</i> &ndash; разрешен просмотр таблицы и комментирование;</li>
+                                        <li>-&nbsp;<i>"Редактор (ограниченно)"</i> &ndash; разрешен просмотр таблицы, комментирование и редактирование плана по звонкам до истечения допустимого количества дней с начала месяца, установленного в настройках;</li>
+                                        <li>-&nbsp;<i>"Редактор"</i> &ndash; разрешен просмотр таблицы, комментирование и редактирование плана по звонкам всегда.</li>
+                                      </ul>
+                                </div>
+                                <div class="permission-note-item">
+                                    <p>[2] &ndash; доступ к настройкам:</p>
+                                    <ul>
+                                        <li>-&nbsp; <i>"Запрещен"</i> &ndash; запрещен доступ к настройкам приложения;</li>
+                                        <li>-&nbsp; <i>"Разрешен"</i> &ndash; разрешен доступ к настройкам приложения.</li>
+                                    </ul>
+                                </div>
+                                <div class="permission-note-item">
+                                    <p>[3] &ndash; доступ к изменению статуса дня:</p>
+                                    <ul>
+                                        <li>-&nbsp; <i>"Запрещен"</i> &ndash; запрещен доступ к изменению статуса дня по двойному клику по маркеру;</li>
+                                        <li>-&nbsp; <i>"Разрешен"</i> &ndash; разрешен доступ к изменению статуса дня по двойному клику по маркеру.</li>
+                                    </ul>
+                                </div>
+                                <div class="permission-note-item">
+                                    <p>[4] &ndash; доступ к верификации сообщений:</p>
+                                    <ul>
+                                        <li>-&nbsp; <i>"Запрещен"</i> &ndash; запрещен доступ к верификации сообщений по двойному клику по галочке сообщения (установка-снятие выделения галочки);</li>
+                                        <li>-&nbsp; <i>"Разрешен"</i> &ndash; разрешен доступ к верификации сообщений по двойному клику по галочке сообщения (установка-снятие выделения галочки).</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal window - выбор данных для сбора статистики -->
+        <div class="modal fade" id="modalSelectDepartAndEmploye" tabindex="-1" aria-labelledby="modalSelectDepartAndEmployeLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalSelectDepartAndEmployeLabel">Выбор отделов и сотрудников для сбора статистики</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modalSelectDepartAndEmployeContainer">
+                            <!-- Блок выбора подразделений для сбора статистики -->
+                            <div class="select-depart-statistic">
+                                <div class="select-depart-statistic-header">Выбранные подразделения для сбора статистики</div>
+                                <div class="select-depart-statistic-content">
+                                    <!--  -->
+                                </div>
+                            </div>
+                            <!-- Блок выбора пользователей по подразделениям для выбора статистики -->
+                            <div class="select-employe-statistic">
+                                <div class="select-employe-statistic-header">Выбранные пользователи подразделений для сбора статистики</div>
+                                <div class="select-employe-statistic-content">
+                                    <!--  -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary modal-select-data-button-cancel" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary modal-select-data-button-save">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal window - производственный календарь -->
+        <div class="modal fade" id="modalCalendar" tabindex="-1" aria-labelledby="modalCalendarAppLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCalendarAppLabel">Производственный календарь</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modalCalendarAppContainer">
+                            <div class="modal-calendar-content-header">
+                                <div class="input-group input-group-sm mb-3 calendar-year">
+                                    <label class="input-group-text" for="clendarSelectYear">Год</label>
+                                    <select class="form-select table-by-month-filter-year" id="clendarSelectYear">
+                                        <!-- Фильтр по годам -->
+                                    </select>
+                                </div>
+                                <div class="modal-calendar-content-header-note">
+                                    <div></div>
+                                    &nbsp; &ndash; выходной день
+                                </div>
+                            </div>
+                            <div class="calendar-list">
+                                <!-- Календари -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal window - прочие настройки -->
+        <div class="modal fade" id="modalOtherSettings" tabindex="-1" aria-labelledby="modalOtherSettingsLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalOtherSettingsLabel">Прочие настройки</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modalOtherSettingsContainer">
+                            <div class="">
+                                <div class="other-settings-item">
+                                    <div class="other-settings-item-title">Минимальная длительность звонка <sup>[1]</sup></div>
+                                    <div class="other-settings-min-duration-calls"><input class="form-control form-control-sm" type="number" value="111" min="0"></div>
+                                    <div>секунд</div>
+                                </div>
+                                <div class="other-settings-item">
+                                    <div class="other-settings-item-title">Количество дней с начала месяца <sup>[2]</sup></div>
+                                    <div class="other-settings-count-days"><input class="form-control form-control-sm" type="number" value="111" min="1"></div>
+                                    <div>дней</div>
+                                </div>
+                                <div class="other-settings-item">
+                                    <div class="other-settings-item-title">Период обновления данных в таблице <sup>[3]</sup></div>
+                                    <div class="other-settings-periopd-update"><input class="form-control form-control-sm" type="number" value="111" min="1"></div>
+                                    <div>минут</div>
+                                </div>
+                            </div>
+
+                            <div class="other-settings-note">
+                                <div class="other-settings-note-header"><i>Примечания:</i></div>
+                                <div class="other-settings-note-item">
+                                    <p>
+                                        [1] &ndash;
+                                        <i>минимальная длительность звонка</i> &ndash;
+                                        это нижний порог длительности звонка, данные которого учитываются в выводе статистики.
+                                    </p>
+                                </div>
+                                <div class="other-settings-note-item">
+                                    <p>
+                                        [2] &ndash;
+                                        <i>количество дней с начала месяца</i> &ndash;
+                                        это количество дней, отсчитываемое с начала месяца, в течении которого сотрудники с правом доступа <b>"Редактирование (ограниченно)"</b> могут редактировать план по звонкам.
+                                    </p>
+                                </div>
+                                <div class="other-settings-note-item">
+                                    <p>
+                                        [3] &ndash; <i>период обновления данных в таблице</i> &ndash;
+                                        это интервал с которым автоматически обновляются данные в таблицах "Нормирование" и "План/Факт" в открытом приложении.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary other-settings-button-cancel" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary   other-settings-button-save">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Window - метаданные комментарии/звонки -->
+        <div class="window-info d-none" id="windowInfoData">
+            <div class="window-info-nav">
+                <div class="window-info-nav-link-comment window-info-nav-link active"><div>Комментарии</div></div>
+                <div class="window-info-nav-link-calls window-info-nav-link ">
+                    <div>Звонки</div>
+                    <div class="count-calls"></div>
+                </div>
+            </div>
+            <div class="window-info-content">
+                <div class="pane pane-comment active">
+                    <div class="pane-container">
+                        <div class="comment-list">
+                            <!--  -->
+                        </div>
+                         <div class="d-flex justify-content-center comment-list-spinner">
+                            <div class="spinner-border text-success" role="status">
+                                <span class="visually-hidden">Загрузка...</span>
+                            </div>
+                        </div>
+                        <div class="comment-send">
+                            <div class="comment-send-input" contenteditable="true"></div>
+                            <div class="comment-send-enter"><p title="Отправить">&#10148;</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pane pane-calls ">
+                    <div class="pane-container">
+                        <div class="calls-list">
+                            <!--  -->
+                        </div>
+                        <div class="d-flex justify-content-center calls-list-spinner">
+                            <div class="spinner-border text-success" role="status">
+                                <span class="visually-hidden">Загрузка...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal window - обновление списка сотрудников -->
+        <div class="modal fade" id="modalUpdateEmploye" tabindex="-1" aria-labelledby="modalUpdateEmployeLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalUpdateEmployeLabel">Обновление данных сотрудников</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modalUpdateEmployeContainer">
+                            <!-- ИКОНКИ ДЛЯ ИНФОРМЕРА СТАТУСА -->
+                            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                </symbol>
+                                <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                                </symbol>
+                            </svg>
+
+                            <!-- СТАТУС - ИЗВЛЕЧЕНИЕ ДАННЫХ -->
+                            <div class="status-get-employe">
+                                <div class="d-none alert alert-primary d-flex align-items-center status-get-employe-process-active" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                                    <div>
+                                        Получение данных пользователей из Битрикс
+                                    </div>
+                                </div>
+                                <div class="d-none alert alert-success d-flex align-items-center status-get-employe-process-completed" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                    <div>
+                                        Данные всех пользователей из Битрикс получены
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- СТАТУС - ОБНОВЛЕНИЕ ДАННЫХ -->
+                            <div class="status-update-employe">
+                                <div class="d-none alert alert-primary d-flex align-items-center status-update-employe-process-active" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                                    <div>
+                                        Обновление данных пользователей на сервере. Пользователь: <strong>-</strong>
+                                    </div>
+                                </div>
+                                <div class="d-none alert alert-success d-flex align-items-center status-update-employe-process-completed" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                    <div>
+                                        Данные пользователей на сервере успешно обновлены
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ПРОГРЕСБАР -->
+                            <div class="d-none progress indicator-container">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated indicator-item" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                            </div>
+
+                            <!-- КНОПКИ -->
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                <button class="btn btn-primary btn-start-update-employe" id="btnStartUpdateEmploye" type="button">Обновить</button>
+                                <button class="btn btn-danger btn-stop-update-employe" id="btnStopUpdateEmploye" type="button">Отмена</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary other-settings-button-cancel" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary   other-settings-button-save">Обновить</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal window - Обноаление данных статистики -->
+        <div class="modal fade" id="modalUpdateData" tabindex="-1" aria-labelledby="modalUpdateDataLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalUpdateDataLabel">Обновление данных статистики</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modalUpdateDataContainer">
+                            <div class="parameters-updating">
+                                <!-- ПЕРИОД -->
+                                <div class="parametr-period-container">
+                                    <label for="">Период</label>
+                                    <div class="parametr-period">
+                                        <div class="position-relative">
+                                            <div class="input-group has-validation parametr-period-start">
+                                                <input type="date" class="form-control form-control-sm">
+                                                <div class="invalid-tooltip">
+                                                    Обязательно укажите дату начала периода
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="parametr-period-separator"> &ndash; </div>
+                                        <div class="position-relative">
+                                            <div class="input-group has-validation parametr-period-end">
+                                                <input type="date" class="form-control form-control-sm">
+                                                <div class="invalid-tooltip">
+                                                    Обязательно укажите дату окончания периода
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- СОТРУДНИК -->
+                                <div class="input-group input-group-sm mb-3 parametr-employe">
+                                    <label class="input-group-text" for="inputGroupSelect02">ID сотрудника</label>
+                                    <input class="form-control form-control-sm" type="text" placeholder="..." aria-label=".form-control-sm example">
+                                </div>
+                            </div>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                </symbol>
+                                <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                                </symbol>
+                            </svg>
+
+                            <!-- СТАТУС - ИЗВЛЕЧЕНИЕ ДАННЫХ -->
+                            <div class="status-get-data">
+                                <div class="d-none alert alert-primary d-flex align-items-center status-get-data-process-active" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                                    <div>
+                                        Получение данных из битрикс
+                                    </div>
+                                </div>
+                                <div class="d-none alert alert-success d-flex align-items-center status-get-data-process-completed" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                    <div>
+                                        Все данные из Битрикс получены
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- СТАТУС - ОБНОВЛЕНИЕ ДАННЫХ -->
+                            <div class="status-update-data">
+                                <div class="d-none alert alert-primary d-flex align-items-center status-update-data-process-active" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                                    <div>
+                                        Обновление данных на сервере. ID активности: <strong>12</strong>
+                                    </div>
+                                </div>
+                                <div class="d-none alert alert-success d-flex align-items-center status-update-data-process-completed" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                    <div>
+                                        Данные на сервере успешно обновлены
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ПРОГРЕССБАР -->
+                            <div class="d-none progress indicator-container">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated indicator-item" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                            </div>
+
+                            <!-- КНОПКИ -->
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                <button class="btn btn-primary btn-start-update-statistics" id="btnStartUpdateStatistics" type="button">Обновить</button>
+                                <button class="btn btn-danger btn-stop-update-statistics" id="btnStopUpdateStatistics" type="button">Отмена</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary other-settings-button-cancel" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary   other-settings-button-save">Обновить</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+        <!-- Bitrix JS -->
+        <script src="//api.bitrix24.com/api/v1/"></script>
+
+        <!-- JS -->
+        <script type="module" src="{% static 'v3/scripts/script.js' %}"></script>
+    </body>
+</html>
+
+

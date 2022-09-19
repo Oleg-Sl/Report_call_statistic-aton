@@ -1,0 +1,954 @@
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: #cfe2ff;
+}
+
+.header .header-menu {
+  margin: 0px 20px 0px 20px;
+}
+
+.header .header-menu button {
+  display: inline-block;
+  margin-right: 10px;
+  border: none;
+  background: none;
+  color: #0d6efd;
+}
+
+.header .header-menu button.active {
+  color: #495057;
+}
+
+.header .header-settings {
+  margin: 0px 20px 0px 20px;
+}
+
+.header .header-settings i {
+  display: block;
+  color: #495057;
+  padding: 0.5rem 1rem;
+  font-size: 20px;
+  cursor: pointer;
+  -webkit-animation-duration: 0.7s;
+          animation-duration: 0.7s;
+  -webkit-animation-name: rotateReversed;
+          animation-name: rotateReversed;
+  -webkit-transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+          transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.header .header-settings i:hover {
+  color: #8b8b8b;
+  -webkit-animation-duration: 0.7s;
+          animation-duration: 0.7s;
+  -webkit-animation-name: rotateForward;
+          animation-name: rotateForward;
+  -webkit-transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+          transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+#tableByMonthFilter {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 200px 150px 1fr;
+      grid-template-columns: 200px 150px 1fr;
+  grid-column-gap: 15px;
+  margin: 15px 15px 0 15px;
+}
+
+#tableStatisticMonth {
+  -webkit-transition: opacity 1.5s ease, -webkit-transform 1.5s ease;
+  transition: opacity 1.5s ease, -webkit-transform 1.5s ease;
+  transition: opacity 1.5s ease, transform 1.5s ease;
+  transition: opacity 1.5s ease, transform 1.5s ease, -webkit-transform 1.5s ease;
+  overflow-x: auto;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  width: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 200px (65px)[48];
+      grid-template-columns: 200px repeat(48, 65px);
+}
+
+#tableStatisticMonth thead {
+  display: contents;
+}
+
+#tableStatisticMonth thead tr {
+  display: contents;
+}
+
+#tableStatisticMonth thead tr th {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 2px solid #dee2e6 !important;
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #746c6c;
+  text-shadow: 1px 1px 1px #fff;
+  background: #dbe8fa;
+  position: relative;
+  z-index: 100;
+}
+
+#tableStatisticMonth thead tr th input {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: end;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(1) {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 4;
+  grid-row: 1/5;
+  position: relative;
+  z-index: 110;
+}
+
+#tableStatisticMonth tbody {
+  display: contents;
+}
+
+#tableStatisticMonth tbody tr {
+  display: contents;
+}
+
+#tableStatisticMonth tbody tr td {
+  background: #ffffff !important;
+  padding: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font: normal 14px/17px Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: #616060;
+  border: 1px solid #dee2e6;
+  height: 100%;
+  text-align: right;
+}
+
+#tableStatisticMonth tbody tr td input {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: end;
+}
+
+#tableStatisticMonth tbody tr td:nth-child(1) {
+  position: relative;
+  z-index: 90;
+  text-align: left;
+}
+
+#tableStatisticMonth tbody tr td.table_by-month-border-left {
+  border-left: 2px solid #8a8a8a;
+}
+
+#tableStatisticMonth tbody tr td.red-cell {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#tableStatisticMonth tbody tr td.red-cell .count-calls-depart-marker {
+  width: 15px;
+  height: 15px;
+  float: left;
+  background: #e49191 !important;
+  border-radius: 50%;
+  margin: 1px 0;
+}
+
+#tableStatisticMonth tbody tr td.red-cell input {
+  width: calc( 100% - 15px);
+}
+
+#tableStatisticMonth tbody tr.head-department td {
+  background: #ecebff !important;
+}
+
+#tableStatisticMonth tbody tr.footer-departments td {
+  background: #c3d3ff !important;
+}
+
+#tableStatisticMonth tbody tr.footer-departments .table-by-month-first-column {
+  font-weight: 600;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(2) {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 3;
+  grid-column: 2/5;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(3) {
+  -ms-grid-column: 5;
+  -ms-grid-column-span: 1;
+  grid-column: 5/6;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(4) {
+  -ms-grid-column: 6;
+  -ms-grid-column-span: 3;
+  grid-column: 6/9;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(5) {
+  -ms-grid-column: 9;
+  -ms-grid-column-span: 1;
+  grid-column: 9/10;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(6) {
+  -ms-grid-column: 10;
+  -ms-grid-column-span: 3;
+  grid-column: 10/13;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(7) {
+  -ms-grid-column: 13;
+  -ms-grid-column-span: 1;
+  grid-column: 13/14;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(8) {
+  -ms-grid-column: 14;
+  -ms-grid-column-span: 3;
+  grid-column: 14/17;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(9) {
+  -ms-grid-column: 17;
+  -ms-grid-column-span: 1;
+  grid-column: 17/18;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(10) {
+  -ms-grid-column: 18;
+  -ms-grid-column-span: 3;
+  grid-column: 18/21;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(11) {
+  -ms-grid-column: 21;
+  -ms-grid-column-span: 1;
+  grid-column: 21/22;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(12) {
+  -ms-grid-column: 22;
+  -ms-grid-column-span: 3;
+  grid-column: 22/25;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(13) {
+  -ms-grid-column: 25;
+  -ms-grid-column-span: 1;
+  grid-column: 25/26;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(14) {
+  -ms-grid-column: 26;
+  -ms-grid-column-span: 3;
+  grid-column: 26/29;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(15) {
+  -ms-grid-column: 29;
+  -ms-grid-column-span: 1;
+  grid-column: 29/30;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(16) {
+  -ms-grid-column: 30;
+  -ms-grid-column-span: 3;
+  grid-column: 30/33;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(17) {
+  -ms-grid-column: 33;
+  -ms-grid-column-span: 1;
+  grid-column: 33/34;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(18) {
+  -ms-grid-column: 34;
+  -ms-grid-column-span: 3;
+  grid-column: 34/37;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(19) {
+  -ms-grid-column: 37;
+  -ms-grid-column-span: 1;
+  grid-column: 37/38;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(20) {
+  -ms-grid-column: 38;
+  -ms-grid-column-span: 3;
+  grid-column: 38/41;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(21) {
+  -ms-grid-column: 41;
+  -ms-grid-column-span: 1;
+  grid-column: 41/42;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(22) {
+  -ms-grid-column: 42;
+  -ms-grid-column-span: 3;
+  grid-column: 42/45;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(23) {
+  -ms-grid-column: 45;
+  -ms-grid-column-span: 1;
+  grid-column: 45/46;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(24) {
+  -ms-grid-column: 46;
+  -ms-grid-column-span: 3;
+  grid-column: 46/49;
+}
+
+#tableStatisticMonth thead tr:first-child th:nth-child(25) {
+  -ms-grid-column: 49;
+  -ms-grid-column-span: 1;
+  grid-column: 49/50;
+}
+
+#tableStatisticMonth thead tr:nth-child(2) th:nth-child(1) {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 4;
+  grid-column: 2/6;
+}
+
+#tableStatisticMonth thead tr:nth-child(2) th:nth-child(2) {
+  -ms-grid-column: 6;
+  -ms-grid-column-span: 4;
+  grid-column: 6/10;
+}
+
+#tableStatisticMonth thead tr:nth-child(2) th:nth-child(3) {
+  -ms-grid-column: 10;
+  -ms-grid-column-span: 4;
+  grid-column: 10/14;
+}
+
+#tableStatisticMonth thead tr:nth-child(2) th:nth-child(4) {
+  -ms-grid-column: 14;
+  -ms-grid-column-span: 4;
+  grid-column: 14/18;
+}
+
+#tableStatisticMonth thead tr:nth-child(2) th:nth-child(5) {
+  -ms-grid-column: 18;
+  -ms-grid-column-span: 4;
+  grid-column: 18/22;
+}
+
+#tableStatisticMonth thead tr:nth-child(2) th:nth-child(6) {
+  -ms-grid-column: 22;
+  -ms-grid-column-span: 4;
+  grid-column: 22/26;
+}
+
+#tableStatisticMonth thead tr:nth-child(2) th:nth-child(7) {
+  -ms-grid-column: 26;
+  -ms-grid-column-span: 4;
+  grid-column: 26/30;
+}
+
+#tableStatisticMonth thead tr:nth-child(2) th:nth-child(8) {
+  -ms-grid-column: 30;
+  -ms-grid-column-span: 4;
+  grid-column: 30/34;
+}
+
+#tableStatisticMonth thead tr:nth-child(2) th:nth-child(9) {
+  -ms-grid-column: 34;
+  -ms-grid-column-span: 4;
+  grid-column: 34/38;
+}
+
+#tableStatisticMonth thead tr:nth-child(2) th:nth-child(10) {
+  -ms-grid-column: 38;
+  -ms-grid-column-span: 4;
+  grid-column: 38/42;
+}
+
+#tableStatisticMonth thead tr:nth-child(2) th:nth-child(11) {
+  -ms-grid-column: 42;
+  -ms-grid-column-span: 4;
+  grid-column: 42/46;
+}
+
+#tableStatisticMonth thead tr:nth-child(2) th:nth-child(12) {
+  -ms-grid-column: 46;
+  -ms-grid-column-span: 4;
+  grid-column: 46/50;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(1) {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 3;
+  grid-column: 2/5;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(2) {
+  -ms-grid-column: 5;
+  -ms-grid-column-span: 1;
+  grid-column: 5/6;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(3) {
+  -ms-grid-column: 6;
+  -ms-grid-column-span: 3;
+  grid-column: 6/9;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(4) {
+  -ms-grid-column: 9;
+  -ms-grid-column-span: 1;
+  grid-column: 9/10;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(5) {
+  -ms-grid-column: 10;
+  -ms-grid-column-span: 3;
+  grid-column: 10/13;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(6) {
+  -ms-grid-column: 13;
+  -ms-grid-column-span: 1;
+  grid-column: 13/14;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(7) {
+  -ms-grid-column: 14;
+  -ms-grid-column-span: 3;
+  grid-column: 14/17;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(8) {
+  -ms-grid-column: 17;
+  -ms-grid-column-span: 1;
+  grid-column: 17/18;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(9) {
+  -ms-grid-column: 18;
+  -ms-grid-column-span: 3;
+  grid-column: 18/21;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(10) {
+  -ms-grid-column: 21;
+  -ms-grid-column-span: 1;
+  grid-column: 21/22;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(11) {
+  -ms-grid-column: 22;
+  -ms-grid-column-span: 3;
+  grid-column: 22/25;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(12) {
+  -ms-grid-column: 25;
+  -ms-grid-column-span: 1;
+  grid-column: 25/26;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(13) {
+  -ms-grid-column: 26;
+  -ms-grid-column-span: 3;
+  grid-column: 26/29;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(14) {
+  -ms-grid-column: 29;
+  -ms-grid-column-span: 1;
+  grid-column: 29/30;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(15) {
+  -ms-grid-column: 30;
+  -ms-grid-column-span: 3;
+  grid-column: 30/33;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(16) {
+  -ms-grid-column: 33;
+  -ms-grid-column-span: 1;
+  grid-column: 33/34;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(17) {
+  -ms-grid-column: 34;
+  -ms-grid-column-span: 3;
+  grid-column: 34/37;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(18) {
+  -ms-grid-column: 37;
+  -ms-grid-column-span: 1;
+  grid-column: 37/38;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(19) {
+  -ms-grid-column: 38;
+  -ms-grid-column-span: 3;
+  grid-column: 38/41;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(20) {
+  -ms-grid-column: 41;
+  -ms-grid-column-span: 1;
+  grid-column: 41/42;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(21) {
+  -ms-grid-column: 42;
+  -ms-grid-column-span: 3;
+  grid-column: 42/45;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(22) {
+  -ms-grid-column: 45;
+  -ms-grid-column-span: 1;
+  grid-column: 45/46;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(23) {
+  -ms-grid-column: 46;
+  -ms-grid-column-span: 3;
+  grid-column: 46/49;
+}
+
+#tableStatisticMonth thead tr:nth-child(3) th:nth-child(24) {
+  -ms-grid-column: 49;
+  -ms-grid-column-span: 1;
+  grid-column: 49/50;
+}
+
+#tableByDayFilter {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 200px 200px 150px 1fr;
+      grid-template-columns: 200px 200px 150px 1fr;
+  grid-column-gap: 15px;
+  margin: 15px 15px 0 15px;
+}
+
+#tableStatisticDay {
+  -webkit-transition: opacity 1.5s ease, -webkit-transform 1.5s ease;
+  transition: opacity 1.5s ease, -webkit-transform 1.5s ease;
+  transition: opacity 1.5s ease, transform 1.5s ease;
+  transition: opacity 1.5s ease, transform 1.5s ease, -webkit-transform 1.5s ease;
+  overflow-x: auto;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  width: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -ms-grid;
+  display: grid;
+}
+
+#tableStatisticDay thead {
+  display: contents;
+}
+
+#tableStatisticDay thead tr {
+  display: contents;
+}
+
+#tableStatisticDay thead tr th {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 2px solid #dee2e6 !important;
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #746c6c;
+  text-shadow: 1px 1px 1px #fff;
+  background: #dbe8fa;
+  position: relative;
+  z-index: 100;
+}
+
+#tableStatisticDay thead tr:first-child th:nth-child(1) {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  grid-row: 1/3;
+}
+
+#tableStatisticDay thead tr:first-child th:nth-child(2) {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  grid-row: 1/3;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 3;
+  grid-column: 2/5;
+}
+
+#tableStatisticDay thead tr th.table-by-day-fixed-column {
+  position: relative;
+  z-index: 110;
+}
+
+#tableStatisticDay thead tr th.red-cell {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#tableStatisticDay thead tr th.red-cell .count-calls-depart-marker {
+  width: 15px;
+  height: 15px;
+  float: left;
+  background: #e49191 !important;
+  border-radius: 50%;
+  margin: 1px 0;
+}
+
+#tableStatisticDay tbody {
+  display: contents;
+}
+
+#tableStatisticDay tbody tr {
+  display: contents;
+}
+
+#tableStatisticDay tbody tr td {
+  background: #ffffff !important;
+  padding: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font: normal 14px/17px Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: #616060;
+  border: 1px solid #dee2e6;
+  height: 100%;
+  text-align: right;
+}
+
+#tableStatisticDay tbody tr td.table_by-day-border-left {
+  border-left: 2px solid #8a8a8a;
+}
+
+#tableStatisticDay tbody tr td.table-by-day-fixed-column {
+  position: relative;
+  z-index: 90;
+}
+
+#tableStatisticDay tbody tr td.table-by-day-first-column {
+  text-align: left;
+}
+
+#tableStatisticDay tbody tr td.red-cell {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#tableStatisticDay tbody tr td.red-cell .count-calls-depart-marker {
+  width: 15px;
+  height: 15px;
+  float: left;
+  background: #e49191 !important;
+  border-radius: 50%;
+  margin: 1px 0;
+}
+
+#tableStatisticDay tbody tr.head-department td {
+  background: #ecebff !important;
+}
+
+#tableStatisticDay tbody tr.footer-departments td {
+  background: #c3d3ff !important;
+}
+
+#tableStatisticDay tbody tr.footer-departments .table-by-month-first-column {
+  font-weight: 600;
+}
+
+#modalSettingsAppContainer {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+}
+
+#modalSettingsAppContainer > div {
+  padding: 10px;
+  border-radius: 5px;
+  background: #fbfbfb;
+  border: 1px solid #ebebeb;
+}
+
+#modalSettingsAppContainer > div .modal-settings-app-block-header {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+#modalSettingsAppContainer .modal-settings-app-depart li {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  font-size: 14px;
+  border-radius: 0 !important;
+}
+
+#modalSettingsAppContainer .modal-settings-app-depart ul li {
+  margin-left: 7px;
+  padding-left: 7px;
+}
+
+#modalSettingsAppContainer .modal-settings-app-depart ul li:not(:last-child) {
+  border-left: 1px solid #d3d3d3;
+}
+
+#modalSettingsAppContainer .modal-settings-app-depart ul li:not(:last-child):before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: red;
+  height: 10px;
+  width: 5px;
+  border-bottom: 1px solid #d3d3d3;
+}
+
+#modalSettingsAppContainer .modal-settings-app-depart ul li:last-child::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: red;
+  height: 10px;
+  width: 5px;
+  border-left: 1px solid #d3d3d3;
+  border-bottom: 1px solid #d3d3d3;
+}
+
+#modalSettingsAppContainer .modal-settings-app-usersdepart .list-group-item {
+  padding: 0 10px;
+}
+
+#modalSettingsAppContainer .modal-settings-app-calls-duration .modal-settings-app-calls-duration-content {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 60px;
+      grid-template-columns: 1fr 60px;
+}
+
+#modalSettingsAppContainer .modal-settings-app-calls-duration .modal-settings-app-calls-duration-content input {
+  border: none;
+  background: none;
+  height: 22px;
+}
+
+#modalSettingsAppContainer .modal-settings-app-calls-duration .modal-settings-app-calls-duration-content p {
+  line-height: 22px;
+  margin: 0;
+}
+
+#modalSettingsAppContainer .modal-settings-app-calls-deadline .modal-settings-app-calls-deadline-content {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 60px;
+      grid-template-columns: 1fr 60px;
+}
+
+#modalSettingsAppContainer .modal-settings-app-calls-deadline .modal-settings-app-calls-deadline-content input {
+  border: none;
+  background: none;
+  height: 22px;
+}
+
+#modalSettingsAppContainer .modal-settings-app-calls-deadline .modal-settings-app-calls-deadline-content p {
+  line-height: 22px;
+  margin: 0;
+}
+
+#modalSettingsAppContainer .modal-settings-app-calls-periodupdate .modal-settings-app-calls-periodupdate-content {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 60px;
+      grid-template-columns: 1fr 60px;
+}
+
+#modalSettingsAppContainer .modal-settings-app-calls-periodupdate .modal-settings-app-calls-periodupdate-content input {
+  border: none;
+  background: none;
+  height: 22px;
+}
+
+#modalSettingsAppContainer .modal-settings-app-calls-periodupdate .modal-settings-app-calls-periodupdate-content p {
+  line-height: 22px;
+  margin: 0;
+}
+
+#modalSettingsAppContainer .modal-settings-app-usersallowed {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-column: 1/3;
+}
+
+#modalSettingsAppContainer .modal-settings-app-usersallowed .list-group-item {
+  padding: 2px;
+}
+
+#modalSettingsAppContainer .modal-settings-app-usersallowed table {
+  width: 100%;
+  font-weight: 400;
+}
+
+#modalSettingsAppContainer .modal-settings-app-usersallowed table thead {
+  border-bottom: 1px solid #dadada;
+  color: #5c5c5c;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+#modalSettingsAppContainer .modal-settings-app-usersallowed table th:first-child {
+  width: calc( 100% - 90px - 90px);
+}
+
+#modalSettingsAppContainer .modal-settings-app-usersallowed table th:nth-child(2), #modalSettingsAppContainer .modal-settings-app-usersallowed table th:nth-child(3) {
+  width: 140px;
+}
+
+#modalSettingsAppContainer .modal-settings-app-usersallowed table th {
+  font-size: .875rem;
+  text-align: center;
+}
+
+#modalSettingsAppContainer .modal-settings-app-usersallowed table td {
+  cursor: default;
+}
+
+#modalSettingsAppContainer .modal-settings-app-usersallowed table td div {
+  width: 100%;
+  overflow: hidden;
+  font-size: .875rem;
+  font-weight: 400;
+  text-overflow: ellipsis;
+}
+
+#modalSettingsAppContainer .modal-settings-app-usersallowed table td select {
+  padding-right: 15px;
+  background: none;
+}
+
+#modalSettingsAppContainer .modal-settings-app-usersallowed table tr:hover td {
+  background: #f5f5f5;
+}
+
+#modalCalendar .calendar-year {
+  width: 200px;
+}
+
+#modalCalendar .calendar-list {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
+
+#modalCalendar tr, #modalCalendar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+}
+
+#modalCalendar .calendar-item-body {
+  width: 307px;
+}
+
+#modalCalendar .calendar-item-title {
+  margin: 0 0 4px;
+  color: black;
+  font: 500 24px/24px Arial, sans-serif;
+}
+
+#modalCalendar .calendar-days {
+  margin-top: 20px;
+  margin-bottom: 0 !important;
+}
+
+#modalCalendar .calendar-days .calendar-days-item {
+  float: left;
+  width: 35px;
+  margin: 0 5px 0 0;
+  text-align: center;
+  color: #666666;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+#modalCalendar .calendar-numbers {
+  margin-bottom: 0 !important;
+}
+
+#modalCalendar .calendar-numbers li {
+  cursor: pointer;
+}
+
+#modalCalendar .calendar-numbers li:hover {
+  background: #d4d1d1;
+}
+
+#modalCalendar .calendar-numbers .calendar-numbers-item {
+  position: relative;
+  float: left;
+  width: 35px;
+  height: 28px;
+  margin: 5px 5px 0 0;
+  text-align: center;
+  font-size: 16px;
+  line-height: 28px;
+}
+
+#modalCalendar .calendar-numbers .calendar-numbers-item-day-off {
+  background: #ffbebe;
+  color: black;
+}
+/*# sourceMappingURL=style.css.map */

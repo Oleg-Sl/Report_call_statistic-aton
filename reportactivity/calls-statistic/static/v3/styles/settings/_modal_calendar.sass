@@ -1,0 +1,66 @@
+// Modal window - производственный календарь
+#modalCalendar
+    #modalCalendarAppContainer
+
+    .modal-calendar-content-header
+        display: flex
+        margin-bottom: 15px
+    .modal-calendar-content-header-note
+        display: flex
+        margin-left: 45px
+        line-height: 27px
+        > div
+            // height: 25px
+            width: 25px
+            background: rgb(255, 190, 190)
+
+    .calendar-year
+        // grid-column: 1/4
+        width: 200px
+        margin-bottom: 0 !important
+    .calendar-list
+        display: grid
+        grid-template-columns: 1fr 1fr 1fr
+        justify-items: center
+    tr, ul
+        list-style: none
+        padding: 0
+        margin: 0
+        border: 0
+        outline: none
+        background: transparent
+    .calendar-item-body
+        width: 307px
+    .calendar-item-title
+        margin: 0 0 4px
+        color: rgb(0, 0, 0)
+        font: 500 24px/24px Arial, sans-serif
+    .calendar-days
+        margin-top: 20px
+        margin-bottom: 0 !important
+    .calendar-days .calendar-days-item
+        float: left
+        width: 35px
+        margin: 0 5px 0 0
+        text-align: center
+        color: rgb(102, 102, 102)
+        font-size: 16px
+        line-height: 22px
+    .calendar-numbers
+        margin-bottom: 0 !important
+    .calendar-numbers li
+        cursor: pointer
+    .calendar-numbers li:hover
+        background: #d4d1d1
+    .calendar-numbers .calendar-numbers-item
+        position: relative
+        float: left
+        width: 35px
+        height: 28px
+        margin: 5px 5px 0 0
+        text-align: center
+        font-size: 16px
+        line-height: 28px
+    .calendar-numbers .calendar-numbers-item-day-off
+        background: rgb(255, 190, 190)
+        color: rgb(0, 0, 0)

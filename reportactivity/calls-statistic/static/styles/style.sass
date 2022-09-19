@@ -1,0 +1,571 @@
+// Высоты строк в таблицах
+$height-row-header: 65px        // высота заголовка таблицы
+$height-row-tbody: 40px         // высота строк с данными (тело таблицы)
+
+// Шрифты в строках таблицы
+$font-header-data: normal 16px/20px Arial,"Helvetica Neue",Helvetica,sans-serif             // шрифт описания в заголовке таблицы
+$font-tbody: normal 14px/17px Arial,"Helvetica Neue",Helvetica,sans-serif                   // шрифт в теле таблицы
+$font-color-header-data: #ffffff                                                          // цвет шрифта в заголовке таблицы
+$font-color-tbody: #616060                                                                // цвет шрифта в теле таблицы
+
+// Цвета строк в таблицах
+$background-header: #6c7ae0//#6c7ae0              // цвет фона заголовка таблицы #0d6efd 
+$background-tbody-even: #f8f6ff                     // цвет четных строк таблицы
+$background-tbody-odd: #ffffff                      // цвет нечетных строк таблицы
+
+
+
+// // Установка ширины модальных окон
+// .modal-template, .modal-type-activity, .modal-items, .modal-companies
+//     .modal-dialog
+//         max-width: 800px
+
+
+// "Меню навигации"
+.header
+    display: flex
+    justify-content: space-between
+    height: fit-content
+    background-color: #cfe2ff // #ececec
+    
+    .header-menu
+        margin: 0px 20px 0px 20px
+
+        button
+            display: inline-block
+            margin-right: 10px
+            border: none
+            background: none
+            color: #0d6efd
+
+            &.active
+                color: #495057
+    
+    .header-settings
+        margin: 0px 20px 0px 20px
+        
+        i
+            display: block
+            color: #495057
+            padding: 0.5rem 1rem
+            font-size: 20px
+            cursor: pointer
+
+            animation-duration: 0.7s
+            animation-name: rotateReversed
+            transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1.0)
+            
+            &:hover
+                color: #8b8b8b
+                animation-duration: 0.7s
+                animation-name: rotateForward
+                transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1.0)
+
+
+// Фильтр таблицы "Статистика за год по месяцам"
+#tableByMonthFilter
+    display: grid
+    grid-template-columns: 200px 150px 1fr
+    grid-column-gap: 15px
+    margin: 15px 15px 0 15px
+
+    // .table-by-month-container-filter-year
+    //     height: fit-content
+
+    // .get-statistic-by-month
+    //     height: fit-content
+    //     margin-left: 15px
+
+
+// Таблица "Статистика за год по месяцам"
+#tableStatisticMonth
+    transition: opacity 1.5s ease, transform 1.5s ease
+    overflow-x: auto
+    user-select: none
+    width: 100%
+    
+    flex: 1
+    display: grid
+    grid-template-columns: 200px repeat(48, 65px)
+    // grid-template-columns: minmax(175px, 2.5fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr)
+
+
+    thead
+        display: contents
+
+        tr 
+            display: contents
+        
+            th
+                overflow: hidden
+                text-overflow: ellipsis
+                border: 2px solid #dee2e6 !important
+                font-size: 12px
+                text-align: center
+                text-transform: uppercase
+                color: #746c6c
+                text-shadow: 1px 1px 1px #fff
+                background: #dbe8fa
+                position: relative
+                z-index: 100
+
+                & input
+                    background: none
+                    border: none
+                    width: 100%
+                    text-align: end
+
+            &:first-child
+                th
+                    &:nth-child(1)
+                        grid-row: 1/5
+                        position: relative
+                        z-index: 110
+                    
+    
+    tbody
+        display: contents
+
+        tr 
+            display: contents
+        
+            td
+                background: #ffffff !important
+                padding: 3px
+                overflow: hidden
+                text-overflow: ellipsis         // если контент не помещается в блок - завершение "..."
+                font: $font-tbody
+                color: $font-color-tbody
+                border: 1px solid #dee2e6
+                height: 100%
+                text-align: right
+
+                & input
+                    background: none
+                    border: none
+                    width: 100%
+                    text-align: end
+
+                &:nth-child(1)
+                    position: relative
+                    z-index: 90
+                    text-align: left
+
+                &.table_by-month-border-left
+                    border-left: 2px solid #8a8a8a
+                    
+                // &.green-cell
+                //     display: flex
+                //     justify-content: space-between
+
+                //     .count-calls-depart-marker
+                //         width: 15px
+                //         height: 15px
+                //         float: left
+                //         background: #bdf1b3 !important
+                //         border-radius: 50%
+                //         margin: 1px 0
+                    
+                //     input
+                //         width: calc( 100% - 15px )
+                
+                &.red-cell
+                    display: flex
+                    justify-content: space-between
+
+                    .count-calls-depart-marker
+                        width: 15px
+                        height: 15px
+                        float: left
+                        background: #e49191 !important
+                        border-radius: 50%
+                        margin: 1px 0
+                        
+                    input
+                        width: calc( 100% - 15px )
+            
+            &.head-department
+                td
+                    background: #ecebff !important
+
+            &.footer-departments
+                td
+                    background: #c3d3ff !important
+                
+                .table-by-month-first-column
+                    font-weight: 600
+
+$i: 2
+@while  $i < 26
+    #tableStatisticMonth thead tr:first-child th:nth-child(#{$i})
+        grid-column: #{2 * $i - 2}/#{2 * $i - 2 + 3}
+    #tableStatisticMonth thead tr:first-child th:nth-child(#{$i + 1})
+        grid-column: #{2 * $i - 2 + 3}/#{2 * $i - 2 + 4}
+
+    $i: $i + 2
+
+
+@for $i from 1 through 12
+    #tableStatisticMonth thead tr:nth-child(2) th:nth-child(#{$i})
+        grid-column: #{4 * $i - 2}/#{4 * $i - 2 + 4}
+    
+
+
+$k: 2
+@while  $k < 26
+    #tableStatisticMonth thead tr:nth-child(3) th:nth-child(#{$k - 1})
+        grid-column: #{2 * $k - 2}/#{2 * $k - 2 + 3}
+    #tableStatisticMonth thead tr:nth-child(3) th:nth-child(#{$k})
+        grid-column: #{2 * $k - 2 + 3}/#{2 * $k - 2 + 4}
+
+    $k: $k + 2
+    
+
+// Фильтр таблицы "Статистика за месяц по дням"
+#tableByDayFilter
+    display: grid
+    grid-template-columns: 200px 200px 150px 1fr
+    grid-column-gap: 15px
+    margin: 15px 15px 0 15px
+    
+
+// Таблица "Статистика за месяц по дням"
+#tableStatisticDay
+    transition: opacity 1.5s ease, transform 1.5s ease
+    overflow-x: auto
+    user-select: none
+    width: 100%    
+    flex: 1
+    display: grid
+    // grid-template-columns: 270px repeat(48, 65px)
+
+    thead
+        display: contents
+
+        tr 
+            display: contents
+        
+            th
+                overflow: hidden
+                text-overflow: ellipsis
+                border: 2px solid #dee2e6 !important
+                font-size: 12px
+                text-align: center
+                text-transform: uppercase
+                color: #746c6c
+                text-shadow: 1px 1px 1px #fff
+                background: #dbe8fa
+                position: relative
+                z-index: 100
+
+            &:first-child
+                th
+                    &:nth-child(1)
+                        grid-row: 1/3
+                        
+                    &:nth-child(2)
+                        grid-row: 1/3
+                        grid-column: 2/5
+
+            th 
+                &.table-by-day-fixed-column
+                    position: relative
+                    z-index: 110
+                
+                // &.green-cell
+                //     display: flex
+                //     justify-content: space-between
+
+                //     .count-calls-depart-marker
+                //         width: 15px
+                //         height: 15px
+                //         float: left
+                //         background: #bdf1b3 !important
+                //         border-radius: 50%
+                //         margin: 1px 0
+                
+                &.red-cell
+                    display: flex
+                    justify-content: space-between
+
+                    .count-calls-depart-marker
+                        width: 15px
+                        height: 15px
+                        float: left
+                        background: #e49191 !important
+                        border-radius: 50%
+                        margin: 1px 0         
+    
+    tbody
+        display: contents
+
+        tr 
+            display: contents
+        
+            td
+                background: #ffffff !important
+                padding: 3px
+                overflow: hidden
+                text-overflow: ellipsis         // если контент не помещается в блок - завершение "..."
+                font: $font-tbody
+                color: $font-color-tbody
+                border: 1px solid #dee2e6
+                height: 100%
+                text-align: right
+
+                &.table_by-day-border-left
+                    border-left: 2px solid #8a8a8a
+            
+                &.table-by-day-fixed-column
+                    position: relative
+                    z-index: 90
+                    
+                &.table-by-day-first-column
+                    text-align: left
+                    
+                // &.green-cell
+                //     display: flex
+                //     justify-content: space-between
+
+                //     .count-calls-depart-marker
+                //         width: 15px
+                //         height: 15px
+                //         float: left
+                //         background: #bdf1b3 !important
+                //         border-radius: 50%
+                //         margin: 1px 0
+                
+                &.red-cell
+                    display: flex
+                    justify-content: space-between
+
+                    .count-calls-depart-marker
+                        width: 15px
+                        height: 15px
+                        float: left
+                        background: #e49191 !important
+                        border-radius: 50%
+                        margin: 1px 0
+                  
+            &.head-department
+                td
+                    background: #ecebff !important
+            
+            &.footer-departments
+                td
+                    background: #c3d3ff !important
+                
+                .table-by-month-first-column
+                    font-weight: 600
+
+
+// .modal-dialog
+//     max-width: 800px
+
+// Окно настроек приложения
+#modalSettingsAppContainer
+    display: grid
+    grid-template-columns: 1fr 1fr
+    grid-gap: 15px
+
+    > div
+        padding: 10px
+        border-radius: 5px
+        // border: 1px solid #dcdcdc
+        // background: #f3f6ff
+        background: #fbfbfb
+        border: 1px solid #ebebeb
+        .modal-settings-app-block-header
+            margin: 0
+            font-size: 17px
+            font-weight: 600
+            line-height: 22px
+
+    // выбор подразделений
+    .modal-settings-app-depart
+        li
+            padding: 0
+            background-color: transparent
+            border: 0
+            font-size: 14px
+            border-radius: 0 !important
+
+        ul
+            li
+                margin-left: 7px
+                padding-left: 7px
+                &:not(:last-child)      // все теги <li> кроме последнего
+                    border-left: 1px solid #d3d3d3
+                &:not(:last-child):before
+                    content: ""
+                    position: absolute
+                    top: 0
+                    left: 0
+                    color: red
+                    height: 10px
+                    width: 5px
+                    border-bottom: 1px solid #d3d3d3
+                &:last-child::before    // последний тег <li>
+                    content: ""
+                    position: absolute
+                    top: 0
+                    left: 0
+                    color: red
+                    height: 10px
+                    width: 5px
+                    border-left: 1px solid #d3d3d3
+                    border-bottom: 1px solid #d3d3d3
+
+    // выбор пользователей департамента
+    .modal-settings-app-usersdepart
+        .list-group-item
+            padding: 0 10px
+
+    // минимальная длительность звонка
+    .modal-settings-app-calls-duration
+        .modal-settings-app-calls-duration-content
+            display: grid
+            grid-template-columns: 1fr 60px
+
+            input
+                // width: 350px
+                border: none
+                background: none
+                height: 22px
+            
+            p    
+                line-height: 22px
+                margin: 0
+
+    // дней с начала месяца
+    .modal-settings-app-calls-deadline
+        .modal-settings-app-calls-deadline-content
+            display: grid
+            grid-template-columns: 1fr 60px
+
+            input
+                border: none
+                background: none
+                height: 22px
+            
+            p    
+                line-height: 22px
+                margin: 0
+
+    // период обновления данных
+    .modal-settings-app-calls-periodupdate
+        .modal-settings-app-calls-periodupdate-content
+            display: grid
+            grid-template-columns: 1fr 60px
+
+            input
+                border: none
+                background: none
+                height: 22px
+            
+            p    
+                line-height: 22px
+                margin: 0
+
+    // права доступа пользователей
+    .modal-settings-app-usersallowed
+        grid-column: 1/3
+        
+        .list-group-item
+            padding: 2px
+
+        table
+            width: 100%
+            font-weight: 400
+            thead
+                border-bottom: 1px solid #dadada
+                color: #5c5c5c
+                text-transform: uppercase
+                font-size: 10px
+
+            th:first-child
+                width: calc( 100% - 90px - 90px )
+
+            th:nth-child(2), th:nth-child(3)
+                width: 140px
+            
+            th
+                font-size: .875rem
+                // font-family: Roboto,Arial,sans-serif
+                text-align: center
+
+            td 
+                cursor: default
+
+                div
+                    width: 100%
+                    overflow: hidden
+                    // font-family: Roboto,Arial,sans-serif
+                    font-size: .875rem
+                    font-weight: 400
+                    // white-space: nowrap
+                    text-overflow: ellipsis
+                
+                select
+                    padding-right: 15px
+                    background: none
+
+            tr:hover
+                td
+                    background: #f5f5f5
+
+
+// Modal window - производственный календарь
+#modalCalendar
+    #modalCalendarAppContainer
+        
+    .calendar-year
+        // grid-column: 1/4
+        width: 200px
+    .calendar-list
+        display: grid
+        grid-template-columns: 1fr 1fr 1fr
+        justify-items: center
+    tr, ul
+        list-style: none
+        padding: 0
+        margin: 0
+        border: 0
+        outline: none
+        background: transparent
+    .calendar-item-body
+        width: 307px
+    .calendar-item-title
+        margin: 0 0 4px
+        color: rgb(0, 0, 0)
+        font: 500 24px/24px Arial, sans-serif
+    .calendar-days
+        margin-top: 20px
+        margin-bottom: 0 !important
+    .calendar-days .calendar-days-item
+        float: left
+        width: 35px
+        margin: 0 5px 0 0
+        text-align: center
+        color: rgb(102, 102, 102)
+        font-size: 16px
+        line-height: 22px
+    .calendar-numbers
+        margin-bottom: 0 !important
+    .calendar-numbers li
+        cursor: pointer
+    .calendar-numbers li:hover
+        background: #d4d1d1
+    .calendar-numbers .calendar-numbers-item
+        position: relative
+        float: left
+        width: 35px
+        height: 28px
+        margin: 5px 5px 0 0
+        text-align: center
+        font-size: 16px
+        line-height: 28px
+    .calendar-numbers .calendar-numbers-item-day-off
+        background: rgb(255, 190, 190)
+        color: rgb(0, 0, 0)
+

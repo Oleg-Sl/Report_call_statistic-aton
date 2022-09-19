@@ -1,0 +1,64 @@
+// Импорт стилей таблиц
+@import table_by_month
+@import table_by_day
+
+// Импорт стилей модального окна с информацией
+@import window_info
+
+// Импорт стилей окон настроек приложения
+@import settings/modal_permission
+@import settings/modal_select_depart_and_employe
+@import settings/modal_calendar
+@import settings/modal_other_settings
+@import settings/modal_update_data_container
+@import settings/modal_update_employe_container
+
+
+// "Меню навигации"
+.header
+    display: flex
+    justify-content: space-between
+    height: fit-content
+    background-color: #cfe2ff // #ececec
+    
+    .header-menu
+        margin: 0px 20px 0px 20px
+
+        button
+            display: inline-block
+            margin-right: 10px
+            border: none
+            background: none
+            color: #0d6efd
+
+            &.active
+                color: #495057
+    
+    .header-settings
+        margin: 0px 20px 0px 20px
+        
+        i
+            display: block
+            color: #495057
+            padding: 0.5rem 1rem
+            font-size: 20px
+            cursor: pointer
+
+            animation-duration: 0.7s
+            animation-name: rotateReversed
+            transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1.0)
+            
+            &:hover
+                color: #8b8b8b
+                animation-duration: 0.7s
+                animation-name: rotateForward
+                transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1.0)
+   
+
+
+
+       
+
+
+
+

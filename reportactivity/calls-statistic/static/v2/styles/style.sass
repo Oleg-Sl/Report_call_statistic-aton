@@ -1,0 +1,1098 @@
+// Высоты строк в таблицах
+$height-row-header: 65px        // высота заголовка таблицы
+$height-row-tbody: 40px         // высота строк с данными (тело таблицы)
+
+// Шрифты в строках таблицы
+$font-header-data: normal 16px/20px Arial,"Helvetica Neue",Helvetica,sans-serif             // шрифт описания в заголовке таблицы
+$font-tbody: normal 14px/17px Arial,"Helvetica Neue",Helvetica,sans-serif                   // шрифт в теле таблицы
+$font-color-header-data: #ffffff                                                          // цвет шрифта в заголовке таблицы
+$font-color-tbody: #616060                                                                // цвет шрифта в теле таблицы
+
+// Цвета строк в таблицах
+$background-header: #6c7ae0//#6c7ae0              // цвет фона заголовка таблицы #0d6efd 
+$background-tbody-even: #f8f6ff                     // цвет четных строк таблицы
+$background-tbody-odd: #ffffff                      // цвет нечетных строк таблицы
+
+
+
+// // Установка ширины модальных окон
+// .modal-template, .modal-type-activity, .modal-items, .modal-companies
+//     .modal-dialog
+//         max-width: 800px
+
+
+// "Меню навигации"
+.header
+    display: flex
+    justify-content: space-between
+    height: fit-content
+    background-color: #cfe2ff // #ececec
+    
+    .header-menu
+        margin: 0px 20px 0px 20px
+
+        button
+            display: inline-block
+            margin-right: 10px
+            border: none
+            background: none
+            color: #0d6efd
+
+            &.active
+                color: #495057
+    
+    .header-settings
+        margin: 0px 20px 0px 20px
+        
+        i
+            display: block
+            color: #495057
+            padding: 0.5rem 1rem
+            font-size: 20px
+            cursor: pointer
+
+            animation-duration: 0.7s
+            animation-name: rotateReversed
+            transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1.0)
+            
+            &:hover
+                color: #8b8b8b
+                animation-duration: 0.7s
+                animation-name: rotateForward
+                transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1.0)
+
+
+// Фильтр таблицы "Статистика за год по месяцам"
+#tableByMonthFilter
+    display: grid
+    grid-template-columns: 200px 150px 1fr
+    grid-column-gap: 15px
+    margin: 15px 15px 0 15px
+
+    // .table-by-month-container-filter-year
+    //     height: fit-content
+
+    // .get-statistic-by-month
+    //     height: fit-content
+    //     margin-left: 15px
+
+
+// Таблица "Статистика за год по месяцам"
+#tableStatisticMonth
+    transition: opacity 1.5s ease, transform 1.5s ease
+    overflow-x: auto
+    user-select: none
+    width: 100%
+    
+    flex: 1
+    display: grid
+    grid-template-columns: 200px repeat(48, 65px)
+    // grid-template-columns: minmax(175px, 2.5fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr)
+
+
+    thead
+        display: contents
+
+        tr 
+            display: contents
+        
+            th
+                overflow: hidden
+                text-overflow: ellipsis
+                border: 2px solid #dee2e6 !important
+                font-size: 12px
+                text-align: center
+                text-transform: uppercase
+                color: #746c6c
+                text-shadow: 1px 1px 1px #fff
+                background: #dbe8fa
+                position: relative
+                z-index: 100
+
+                & input
+                    background: none
+                    border: none
+                    width: 100%
+                    text-align: end
+
+            &:first-child
+                th
+                    &:nth-child(1)
+                        grid-row: 1/5
+                        position: relative
+                        z-index: 110
+                    
+    
+    tbody
+        display: contents
+
+        tr 
+            display: contents
+        
+            td
+                position: relative
+                background: #ffffff !important
+                padding: 3px
+                overflow: hidden
+                text-overflow: ellipsis         // если контент не помещается в блок - завершение "..."
+                font: $font-tbody
+                color: $font-color-tbody
+                border: 1px solid #dee2e6
+                height: 100%
+                text-align: right
+
+                & input
+                    background: none
+                    border: none
+                    width: 100%
+                    text-align: end
+
+                &:nth-child(1)
+                    position: relative
+                    z-index: 90
+                    text-align: left
+
+                &.table_by-month-border-left
+                    border-left: 2px solid #8a8a8a
+                    
+                // &.green-cell
+                //     display: flex
+                //     justify-content: space-between
+
+                //     .count-calls-depart-marker
+                //         width: 15px
+                //         height: 15px
+                //         float: left
+                //         background: #bdf1b3 !important
+                //         border-radius: 50%
+                //         margin: 1px 0
+                    
+                //     input
+                //         width: calc( 100% - 15px )
+                
+                &.red-cell
+                    display: flex
+                    justify-content: space-between
+
+                    .count-calls-depart-marker
+                        width: 15px
+                        height: 15px
+                        float: left
+                        // background: #9291e4
+                        background: #e49191
+                        border-radius: 50%
+                        margin: 1px 0
+
+                    input
+                        width: calc( 100% - 15px )
+
+                    
+                
+                &.is-comments:before
+                    content: ""
+                    position: absolute
+                    top: 0
+                    left: 0
+                    border: 5px solid transparent
+                    border-left: 5px solid #26c355
+                    border-top: 5px solid #26c355
+            
+            &:hover td
+                background: #efefef !important
+
+            &.head-department
+                td
+                    background: #dbd9f7 !important
+
+            &.footer-departments
+                td
+                    background: #c3d3ff !important
+                
+                .table-by-month-first-column
+                    font-weight: 600
+
+
+$i: 2
+@while  $i < 26
+    #tableStatisticMonth thead tr:first-child th:nth-child(#{$i})
+        grid-column: #{2 * $i - 2}/#{2 * $i - 2 + 3}
+    #tableStatisticMonth thead tr:first-child th:nth-child(#{$i + 1})
+        grid-column: #{2 * $i - 2 + 3}/#{2 * $i - 2 + 4}
+
+    $i: $i + 2
+
+
+@for $i from 1 through 12
+    #tableStatisticMonth thead tr:nth-child(2) th:nth-child(#{$i})
+        grid-column: #{4 * $i - 2}/#{4 * $i - 2 + 4}
+    
+
+
+$k: 2
+@while  $k < 26
+    #tableStatisticMonth thead tr:nth-child(3) th:nth-child(#{$k - 1})
+        grid-column: #{2 * $k - 2}/#{2 * $k - 2 + 3}
+    #tableStatisticMonth thead tr:nth-child(3) th:nth-child(#{$k})
+        grid-column: #{2 * $k - 2 + 3}/#{2 * $k - 2 + 4}
+
+    $k: $k + 2
+    
+
+// Фильтр таблицы "Статистика за месяц по дням"
+#tableByDayFilter
+    display: grid
+    grid-template-columns: 200px 200px 150px 1fr
+    grid-column-gap: 15px
+    margin: 15px 15px 0 15px
+    
+
+// Таблица "Статистика за месяц по дням"
+#tableStatisticDay
+    transition: opacity 1.5s ease, transform 1.5s ease
+    overflow-x: auto
+    user-select: none
+    width: 100%    
+    flex: 1
+    display: grid
+    // grid-template-columns: 270px repeat(48, 65px)
+
+    thead
+        display: contents
+
+        tr 
+            display: contents
+        
+            th
+                overflow: hidden
+                text-overflow: ellipsis
+                border: 2px solid #dee2e6 !important
+                font-size: 12px
+                text-align: center
+                text-transform: uppercase
+                color: #746c6c
+                text-shadow: 1px 1px 1px #fff
+                background: #dbe8fa
+                position: relative
+                z-index: 100
+
+            &:first-child
+                th
+                    &:nth-child(1)
+                        grid-row: 1/3
+                        
+                    &:nth-child(2)
+                        grid-row: 1/3
+                        grid-column: 2/5
+
+            th 
+                &.table-by-day-fixed-column
+                    position: relative
+                    z-index: 110
+                
+                // &.green-cell
+                //     display: flex
+                //     justify-content: space-between
+
+                //     .count-calls-depart-marker
+                //         width: 15px
+                //         height: 15px
+                //         float: left
+                //         background: #bdf1b3 !important
+                //         border-radius: 50%
+                //         margin: 1px 0
+                
+                &.red-cell
+                    display: flex
+                    justify-content: space-between
+
+                    .count-calls-depart-marker
+                        width: 15px
+                        height: 15px
+                        float: left
+                        background: #e49191
+                        border-radius: 50%
+                        margin: 1px 0
+    
+    tbody
+        display: contents
+
+        tr 
+            display: contents
+        
+            td
+                position: relative
+                background: #ffffff !important
+                padding: 3px
+                overflow: hidden
+                text-overflow: ellipsis         // если контент не помещается в блок - завершение "..."
+                font: $font-tbody
+                color: $font-color-tbody
+                border: 1px solid #dee2e6
+                height: 100%
+                text-align: right
+
+                &.table_by-day-border-left
+                    border-left: 2px solid #8a8a8a
+
+                &.table_by-day-border-right
+                    border-right: 2px solid #8a8a8a
+            
+                &.table-by-day-fixed-column
+                    position: relative
+                    z-index: 90
+                    
+                &.table-by-day-first-column
+                    text-align: left
+                    
+                // &.green-cell
+                //     display: flex
+                //     justify-content: space-between
+
+                //     .count-calls-depart-marker
+                //         width: 15px
+                //         height: 15px
+                //         float: left
+                //         background: #bdf1b3 !important
+                //         border-radius: 50%
+                //         margin: 1px 0
+                
+                &.red-cell
+                    display: flex
+                    justify-content: space-between
+
+                    .count-calls-depart-marker
+                        width: 15px
+                        height: 15px
+                        float: left
+                        background: #e49191
+                        border-radius: 50%
+                        margin: 1px 0
+
+                    .count-calls-depart-marker-update
+                        animation: loader 1s infinite alternate
+
+                    .count-calls-depart-marker-plan-true
+                        background: #a2e491 !important
+                
+                &.is-comments:before
+                    content: ""
+                    position: absolute
+                    top: 0
+                    left: 0
+                    border: 5px solid transparent
+                    border-left: 5px solid #26c355
+                    border-top: 5px solid #26c355
+            
+            &:hover td
+                background: #efefef !important
+
+            &.head-department
+                td
+                    background: #dbd9f7 !important
+            
+            &.footer-departments
+                td
+                    background: #c3d3ff !important
+                
+                .table-by-month-first-column
+                    font-weight: 600
+
+@keyframes loader
+    from 
+        opacity: 1
+    to 
+        opacity: 0.2
+
+// Окно настроек приложения
+#modalSettingsAppContainer
+    display: grid
+    grid-template-columns: 1fr 1fr
+    grid-gap: 15px
+
+    > div
+        padding: 10px
+        border-radius: 5px
+        // border: 1px solid #dcdcdc
+        // background: #f3f6ff
+        background: #fbfbfb
+        border: 1px solid #ebebeb
+        .modal-settings-app-block-header
+            margin: 0
+            font-size: 17px
+            font-weight: 600
+            line-height: 22px
+
+    // выбор подразделений
+    .modal-settings-app-depart
+        li
+            padding: 0
+            background-color: transparent
+            border: 0
+            font-size: 14px
+            border-radius: 0 !important
+
+        ul
+            li
+                margin-left: 7px
+                padding-left: 7px
+                &:not(:last-child)      // все теги <li> кроме последнего
+                    border-left: 1px solid #d3d3d3
+                &:not(:last-child):before
+                    content: ""
+                    position: absolute
+                    top: 0
+                    left: 0
+                    color: red
+                    height: 10px
+                    width: 5px
+                    border-bottom: 1px solid #d3d3d3
+                &:last-child::before    // последний тег <li>
+                    content: ""
+                    position: absolute
+                    top: 0
+                    left: 0
+                    color: red
+                    height: 10px
+                    width: 5px
+                    border-left: 1px solid #d3d3d3
+                    border-bottom: 1px solid #d3d3d3
+
+    // выбор пользователей департамента
+    .modal-settings-app-usersdepart
+        .list-group-item
+            padding: 0 10px
+
+    // минимальная длительность звонка
+    .modal-settings-app-calls-duration
+        .modal-settings-app-calls-duration-content
+            display: grid
+            grid-template-columns: 1fr 60px
+
+            input
+                // width: 350px
+                border: none
+                background: none
+                height: 22px
+            
+            p    
+                line-height: 22px
+                margin: 0
+
+    // дней с начала месяца
+    .modal-settings-app-calls-deadline
+        .modal-settings-app-calls-deadline-content
+            display: grid
+            grid-template-columns: 1fr 60px
+
+            input
+                border: none
+                background: none
+                height: 22px
+            
+            p    
+                line-height: 22px
+                margin: 0
+
+    // период обновления данных
+    .modal-settings-app-calls-periodupdate
+        .modal-settings-app-calls-periodupdate-content
+            display: grid
+            grid-template-columns: 1fr 60px
+
+            input
+                border: none
+                background: none
+                height: 22px
+            
+            p    
+                line-height: 22px
+                margin: 0
+
+    // права доступа пользователей
+    .modal-settings-app-usersallowed
+        grid-column: 1/3
+        
+        .list-group-item
+            padding: 2px
+
+        table
+            width: 100%
+            font-weight: 400
+            thead
+                border-bottom: 1px solid #dadada
+                color: #5c5c5c
+                text-transform: uppercase
+                font-size: 10px
+
+            th:first-child
+                width: calc( 100% - 90px - 90px )
+
+            th:nth-child(2), th:nth-child(3)
+                width: 140px
+            
+            th
+                font-size: .875rem
+                // font-family: Roboto,Arial,sans-serif
+                text-align: center
+
+            td 
+                cursor: default
+
+                div
+                    width: 100%
+                    overflow: hidden
+                    // font-family: Roboto,Arial,sans-serif
+                    font-size: .875rem
+                    font-weight: 400
+                    // white-space: nowrap
+                    text-overflow: ellipsis
+                
+                select
+                    padding-right: 15px
+                    background: none
+
+            tr:hover
+                td
+                    background: #f5f5f5
+
+// Modal window - парва доступа
+#modalPermission
+    #modalPermissionContainer
+    
+    table
+        display: grid
+        grid-template-columns: 1fr 1fr 1fr
+        width: 100%
+        thead
+            display: contents
+            tr
+                display: contents
+            tr th
+                overflow: hidden
+                text-overflow: ellipsis
+                border: 1px solid #dee2e6 !important
+                // font-size: 12px
+                text-align: center
+                text-transform: uppercase
+                color: #746c6c
+                background: #e5f0ff
+            tr:first-child th
+                grid-column: 1/4
+        tbody
+            display: contents
+            tr
+                display: contents
+            tr td
+                padding: 0 15px
+                overflow: hidden
+                text-overflow: ellipsis
+                border-width: 1px 1px
+                border-style: solid
+                border-color: #dee2e6
+            tr td select
+                width: 100%
+                font-size: 14px
+                background: none
+                border: none
+                border-radius: 0
+            .permission-department td
+                display: flex
+                justify-content: space-between
+                border-width: 1px 1px
+                grid-column: 1/4
+                // background: #fcf8ff
+            .permission-department td p
+                display: inline-block
+                margin: 0
+                color: #0d6efd
+                text-decoration: underline
+                font-size: 18px
+                cursor: pointer
+                width: fit-content
+                &:hover
+                    color: #0a58ca
+            .permission-department td .department-status-collapse
+                transition: transform 0.2s
+            .permission-department-off
+                .department-status-collapse
+                    transform: rotate(180deg)
+            .row-collaps td
+                height: 0
+                padding: 0 1px
+                border-width: 0 1px
+            tr:hover
+                td, td select
+                    background: #efefef
+            .download-data td #floatingCirclesG
+                display: block
+
+    .permission-note
+        margin-top: 25px
+        .permission-note-header i
+            font-weight: 700
+        .permission-note-item
+            margin-top: 10px
+        .permission-note-item p
+            margin: 0
+        .permission-note-item ul
+            margin: 0
+            list-style-type: none
+            
+// Modal window - выбор данных для статистики
+#modalSelectDepartAndEmploye
+    #modalSelectDepartAndEmployeContainer
+        display: grid
+        grid-gap: 15px
+    .select-depart-statistic
+        padding: 10px
+        border-radius: 5px
+        background: #f9fafd
+        border: 1px solid #ebefff
+    .select-depart-statistic .select-depart-statistic-header
+        font-size: 17px
+        font-weight: 600
+        line-height: 22px
+        margin-bottom: 10px
+    .select-depart-statistic .select-depart-statistic-content
+        li
+            padding: 0
+            background-color: transparent
+            border: 0
+            font-size: 14px
+            border-radius: 0 !important
+        ul li
+            margin-left: 7px
+            padding-left: 7px
+            &:not(:last-child)      // все теги <li> кроме последнего
+                border-left: 1px solid #d3d3d3
+            &:not(:last-child):before
+                content: ""
+                position: absolute
+                top: 0
+                left: 0
+                color: red
+                height: 10px
+                width: 5px
+                border-bottom: 1px solid #d3d3d3
+            &:last-child::before    // последний тег <li>
+                content: ""
+                position: absolute
+                top: 0
+                left: 0
+                color: red
+                height: 10px
+                width: 5px
+                border-left: 1px solid #d3d3d3
+                border-bottom: 1px solid #d3d3d3
+
+    .select-employe-statistic
+        padding: 10px
+        border-radius: 5px
+        background: #f9fafd
+        border: 1px solid #ebefff
+    .select-employe-statistic .select-employe-statistic-header
+        font-size: 17px
+        font-weight: 600
+        line-height: 22px
+        margin-bottom: 10px
+    .select-employe-statistic .select-employe-statistic-content
+        li
+            padding: 0 20px
+
+// Modal window - производственный календарь
+#modalCalendar
+    #modalCalendarAppContainer
+
+    .modal-calendar-content-header
+        display: flex
+        margin-bottom: 15px
+    .modal-calendar-content-header-note
+        display: flex
+        margin-left: 45px
+        line-height: 27px
+        > div
+            // height: 25px
+            width: 25px
+            background: rgb(255, 190, 190)
+
+        
+    .calendar-year
+        // grid-column: 1/4
+        width: 200px
+        margin-bottom: 0 !important
+    .calendar-list
+        display: grid
+        grid-template-columns: 1fr 1fr 1fr
+        justify-items: center
+    tr, ul
+        list-style: none
+        padding: 0
+        margin: 0
+        border: 0
+        outline: none
+        background: transparent
+    .calendar-item-body
+        width: 307px
+    .calendar-item-title
+        margin: 0 0 4px
+        color: rgb(0, 0, 0)
+        font: 500 24px/24px Arial, sans-serif
+    .calendar-days
+        margin-top: 20px
+        margin-bottom: 0 !important
+    .calendar-days .calendar-days-item
+        float: left
+        width: 35px
+        margin: 0 5px 0 0
+        text-align: center
+        color: rgb(102, 102, 102)
+        font-size: 16px
+        line-height: 22px
+    .calendar-numbers
+        margin-bottom: 0 !important
+    .calendar-numbers li
+        cursor: pointer
+    .calendar-numbers li:hover
+        background: #d4d1d1
+    .calendar-numbers .calendar-numbers-item
+        position: relative
+        float: left
+        width: 35px
+        height: 28px
+        margin: 5px 5px 0 0
+        text-align: center
+        font-size: 16px
+        line-height: 28px
+    .calendar-numbers .calendar-numbers-item-day-off
+        background: rgb(255, 190, 190)
+        color: rgb(0, 0, 0)
+
+// Modal window - прочие настройки
+#modalOtherSettings
+    .other-settings-item
+        display: grid
+        grid-template-columns: 1fr 150px 80px
+        gap: 15px
+        padding-bottom: 10px 
+        margin: 10px 0
+        border-bottom: 1px solid #bdbbbb
+    .other-settings-item-title
+        font-weight: 600
+    .other-settings-item input
+        text-align: end
+
+    .other-settings-note
+        margin-top: 25px
+        .other-settings-note-header i
+            font-weight: 700
+        .other-settings-note-item
+            margin-top: 10px
+        .other-settings-note-item p
+            margin: 0
+
+// Modal window - Обновление данных статистики
+#modalUpdateDataContainer
+    .parameters-updating
+        display: grid
+        grid-gap: 10px
+    .parameters-updating .parametr-employe
+        grid-column: 1/2
+
+    .parameters-updating .parametr-period
+        display: grid
+        grid-template-columns: 1fr 20px 1fr
+        .parametr-period-start
+
+        .parametr-period-end
+        
+        .parametr-period-separator
+            margin: auto
+
+    .indicator-container
+        margin-bottom: 10px
+
+#modalUpdateEmployeContainer
+    .indicator-container
+        margin-bottom: 10px
+
+
+// Спиннер - вращающиеся круги
+#floatingCirclesG
+    position: relative
+    width: 26px
+    height: 26px
+    -webkit-transform: scale(0.6)
+    transform: scale(0.6)
+    display: none
+    .f_circleG
+        position: absolute
+        background-color: rgb(255,255,255)
+        height: 5px
+        width: 5px
+        border-radius: 2px
+        animation-name: f_fadeG
+        animation-duration: 1.2s
+        animation-iteration-count: infinite
+        animation-direction: normal
+    #frotateG_01
+        left: 0
+        top: 10px
+        animation-delay: 0.45s
+    #frotateG_02
+        left: 3px
+        top: 3px
+        animation-delay: 0.6s
+    #frotateG_03
+        left: 10px
+        top: 0
+        animation-delay: 0.75s
+    #frotateG_04
+        right: 3px
+        top: 3px
+        animation-delay: 0.9s
+    #frotateG_05
+        right: 0
+        top: 10px
+        animation-delay: 1.05s
+    #frotateG_06
+        right: 3px
+        bottom: 3px
+        animation-delay: 1.2s
+    #frotateG_07
+        left: 10px
+        bottom: 0
+        animation-delay: 1.35s
+    #frotateG_08
+        left: 3px
+        bottom: 3px
+        animation-delay: 1.5s
+
+@keyframes f_fadeG
+	0%
+		background-color: rgb(122,122,122)
+	
+	100%
+		background-color: rgb(255,255,255)
+
+@-o-keyframes f_fadeG
+	0%
+		background-color: rgb(122,122,122)
+	
+	100%
+		background-color: rgb(255,255,255)
+	
+@-ms-keyframes f_fadeG
+	0%
+		background-color: rgb(122,122,122)
+	
+	100%
+		background-color: rgb(255,255,255)
+	
+@-webkit-keyframes f_fadeG
+	0%
+		background-color: rgb(122,122,122)
+	
+	100%
+		background-color: rgb(255,255,255)
+	
+@-moz-keyframes f_fadeG
+	0%
+		background-color: rgb(122,122,122)
+	
+	100%
+		background-color: rgb(255,255,255)
+	
+$window-info-border-color: #979797
+#windowInfoData
+    position: fixed
+    top: 100px
+    left: 500px
+    height: fit-content
+    // height: 450px
+    width: 350px
+    border: 2px solid $window-info-border-color
+    border-radius: 5px
+    background: #deebff
+    background: linear-gradient(90deg, #f598a8, #f6edb2)
+    background: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db)
+    // background: #f3f0ff
+    // background: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db)
+    z-index: 1001
+    .window-info-nav
+        display: flex
+    .window-info-nav .window-info-nav-link
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 50%
+        height: 30px
+        border-bottom: 2px solid $window-info-border-color
+        cursor: pointer
+        color: #0d6efd
+        font-size: 16px
+        background: #fff
+        &:hover
+            color: #0a58ca
+        &:first-child
+            border-right: 2px solid $window-info-border-color
+        &.active
+            background: none
+            color: rgb(73, 80, 87)
+            border-bottom: 0px solid $window-info-border-color
+    .window-info-content
+        .pane
+            display: none
+            height: 350px
+            &.active
+                display: block
+                opacity: 1
+        .pane .pane-container
+            display: flex
+            flex-direction: column
+            justify-content: space-between
+            height: 100%
+        // панель - КОММЕНТАРИИ - список
+        .pane .comment-list
+            // flex-shrink: 1
+            // height: 310px
+            // height: inherit
+            overflow-y: scroll
+            margin: 5px 0 0 5px
+            padding-right: 5px
+            &::-webkit-scrollbar
+                // полоса прокрутки (скроллбар)
+                width: 7px
+                // background-color: #f1f1f1
+            &::-webkit-scrollbar-thumb
+                // ползунок скроллбара
+                background-color: #b1b1b1
+                border-radius: 3em
+            &::-webkit-scrollbar-thumb:hover 
+                background-color: #797979
+            .comment
+                position: relative
+                padding: 2px 5px
+                margin-bottom: 5px
+                border-radius: 10px
+                background: #ffffffe3
+            .comment-verified
+                position: absolute
+                right: 5px
+                top: 0
+                color: #a19c9c
+                i
+                    font-size: 24px
+                    line-height: 24px
+            .comment-verified-true
+                color: #16d763
+            .comment .comment-recipient
+                white-space: nowrap
+                overflow: hidden
+                text-overflow: ellipsis
+                font-size: calc(16px - .125rem)
+                font-weight: 500
+                line-height: 0.9rem
+                color: #3390ec
+                unicode-bidi: plaintext
+                display: flex
+                span
+                    overflow: hidden
+                    text-overflow: ellipsis
+                    cursor: pointer
+            .comment .comment-text-content
+                font-size: 15px
+                line-height: 1.2rem
+                // line-height: 1.3125
+            .comment .comment-date
+                display: flex
+                justify-content: flex-end
+                color: #8b8b8b
+                font-size: 12px
+                line-height: 0.8rem
+                white-space: nowrap
+        // спиннер - загрузка комментариев
+        .pane .comment-list-spinner
+            margin-top: 25px
+        // панель - КОММЕНТАРИИ - отправить
+        .pane .comment-send
+            display: grid
+            grid-template-columns: 1fr 35px
+            border-top: 1px solid #adabab
+            .comment-send-input
+                max-height: 75px
+                overflow-y: scroll
+                background: #fff
+                outline: none
+                border-bottom-left-radius: 5px
+                cursor: text
+                &:focus-visible
+                    border: none
+                &::-webkit-scrollbar
+                    // полоса прокрутки (скроллбар)
+                    width: 7px
+                    background-color: #ffffff00
+                    cursor: pointer
+                &::-webkit-scrollbar-thumb
+                    // ползунок скроллбара
+                    background-color: #c0c0c0
+                    cursor: pointer
+                &::-webkit-scrollbar-thumb:hover 
+                    background-color: #797979
+            .comment-send-enter
+                display: flex
+                align-items: center
+                justify-content: center
+                background: #fff
+                border-left: 1px solid #dfdfdf
+                border-bottom-right-radius: 5px
+                p
+                    margin: 0
+                    transform: scaleY(1.2)
+                    font-size: 22px
+                    color: #a9a3a3
+                    cursor: pointer
+                p:hover
+                    color: #575656
+        // панель - ЗВОНКИ
+        .pane .calls-list
+            // height: 350px
+            height: 100%
+            overflow-y: scroll
+            margin: 5px 0 0 5px
+            padding-right: 5px
+            &::-webkit-scrollbar
+                // полоса прокрутки (скроллбар)
+                width: 7px
+                // background-color: #f1f1f1
+            &::-webkit-scrollbar-thumb
+                // ползунок скроллбара
+                background-color: #ffffff
+                border-radius: 3em
+            &::-webkit-scrollbar-thumb:hover 
+                background-color: #33648b
+            .calls-item
+                display: flex
+                flex-direction: column
+                padding: 0px 5px
+                margin-bottom: 5px
+                border-radius: 10px
+                background: #ffffffe3
+            .calls-item div
+                font-size: 14px
+                color: #666
+            .calls-item span
+                font-weight: 600
+                color: #424242
+            .calls-item .data-col-2
+                display: grid
+                grid-template-columns: 1fr 1fr
+                white-space: nowrap
+            .calls-item .calls-play audio
+                width: 100%
+                height: 20px
+
+// 
+
+
+
+

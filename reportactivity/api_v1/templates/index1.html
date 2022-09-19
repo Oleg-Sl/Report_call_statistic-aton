@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        {% load static %}
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static 'v2/styles/style.css' %}">
+
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="">
+            <div class="header">
+                <div class="header-menu">
+                    <nav>
+                        <div class="nav header-menu-nav">
+                            <button class="nav-link active" id="nav-month-tab" data-bs-toggle="tab" data-bs-target="#nav-month" type="button" role="tab" aria-controls="nav-month" aria-selected="true">Нормирование</button>
+                            <button class="nav-link" id="nav-days-tab" data-bs-toggle="tab" data-bs-target="#nav-days" type="button" role="tab" aria-controls="nav-days" aria-selected="false">План/Факт</button>
+                        </div>
+                    </nav>
+                </div>
+                <div class="header-settings">
+                    <i class="bi bi-gear-fill" data-bs-toggle="modal" data-bs-target="#modalSettings" title="Настройки"></i>
+                    <!-- <i class="bi bi-gear-fill" data-bs-toggle="dropdown" aria-expanded="false" title="Настройки"></i>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#modalWindowDepartment">Подразделения</button></li>
+                    </ul> -->
+                </div>
+            </div>
+    
+    
+            <div class="tab-content" id="nav-tabContent">
+                <!-- Блок "НОРМИРОВАНИЕ" -->
+                <div class="tab-pane fade show active month" id="nav-month" role="tabpanel" aria-labelledby="nav-month-tab">
+                    <!-- Фильтр -->
+                    <div id="tableByMonthFilter">
+                        <div class="input-group input-group-sm mb-3 table-by-month-container-filter-year">
+                            <label class="input-group-text" for="inputGroupSelect01">Год</label>
+                            <select class="form-select table-by-month-filter-year" id="inputGroupSelect01">
+                                <!--  -->
+                            </select>
+                        </div>
+                        <div class="get-statistic-by-month">
+                            <button type="button" class="btn btn-outline-secondary btn-sm">Получить</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Таблица -->
+                    <table class="table-bordered" id="tableStatisticMonth">
+                        <!-- Здесь вывод таблицы -->
+                    </table>
+                </div>
+                
+                <!-- Блок "ПЛАН/ФАКТ" -->
+                <div class="tab-pane fade days" id="nav-days" role="tabpanel" aria-labelledby="nav-days-tab">
+                    <!-- Фильтр -->
+                    <div id="tableByDayFilter">
+                        <div class="input-group input-group-sm mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Год</label>
+                            <select class="form-select table-by-day-filter-year" id="inputGroupSelect01">
+                                <!--  -->
+                            </select>
+                        </div>
+                        <div class="input-group input-group-sm mb-3 ">
+                            <label class="input-group-text" for="inputGroupSelect02">Месяц</label>
+                            <select class="form-select table-by-day-filter-month" id="inputGroupSelect02">
+                                <option value="1">Январь</option>
+                                <option value="2">Февраль</option>
+                                <option value="3">Март</option>
+                                <option value="4">Апрель</option>
+                                <option value="5">Май</option>
+                                <option value="6">Июнь</option>
+                                <option value="7">Июль</option>
+                                <option value="8">Август</option>
+                                <option value="9">Сентябрь</option>
+                                <option value="10">Октябрь</option>
+                                <option value="11">Ноябрь</option>
+                                <option value="12">Декабрь</option>
+                            </select>
+                        </div>
+                        <div class="get-statistic-by-day">
+                            <button type="button" class="btn btn-outline-secondary btn-sm">Получить</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Таблица -->
+                    <table class="table-bordered" id="tableStatisticDay">
+                        <!-- Здесь вывод таблицы -->
+                    </table>
+                </div>           
+            </div>
+        </div>
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalSettings" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalSettingsAppLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalSettingsAppLabel">Настройки</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modalSettingsAppContainer">
+                        <div class="modal-settings-app-depart">
+                            <p>Подразделения</p>
+                            <div class="modal-settings-app-depart-content">
+                                
+                            </div>
+                        </div>
+                        <div class="modal-settings-app-calls-duration">
+                            <p>Длительность звонка</p>
+                            <div class="modal-settings-app-calls-duration-content">
+                                <input class="form-control form-control-sm" type="number" placeholder="..." aria-label=".form-control-sm example">
+                                <p>секунд</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary modal-settings-app-button-cancel" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary modal-settings-app-button-save">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        
+        <!-- Bitrix JS -->
+        <script src="//api.bitrix24.com/api/v1/"></script>
+
+        <!-- JS -->
+        <script type="module" src="{% static 'v2/scripts/script.js' %}"></script>
+    </body>
+</html>

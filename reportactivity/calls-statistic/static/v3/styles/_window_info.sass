@@ -1,0 +1,192 @@
+$window-info-border-color: #979797
+#windowInfoData
+    position: fixed
+    top: 100px
+    left: 500px
+    height: fit-content
+    // height: 450px
+    width: 350px
+    border: 2px solid $window-info-border-color
+    border-radius: 5px
+    background: #deebff
+    background: linear-gradient(90deg, #f598a8, #f6edb2)
+    background: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db)
+    // background: #f3f0ff
+    // background: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db)
+    z-index: 1001
+    .window-info-nav
+        display: flex
+    .window-info-nav .window-info-nav-link
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 50%
+        height: 30px
+        border-bottom: 2px solid $window-info-border-color
+        cursor: pointer
+        color: #0d6efd
+        font-size: 16px
+        background: #fff
+        &:hover
+            color: #0a58ca
+        &:first-child
+            border-right: 2px solid $window-info-border-color
+        &.active
+            background: none
+            color: rgb(73, 80, 87)
+            border-bottom: 0px solid $window-info-border-color
+    .window-info-content
+        .pane
+            display: none
+            height: 350px
+            &.active
+                display: block
+                opacity: 1
+        .pane .pane-container
+            display: flex
+            flex-direction: column
+            justify-content: space-between
+            height: 100%
+        // панель - КОММЕНТАРИИ - список
+        .pane .comment-list
+            // flex-shrink: 1
+            // height: 310px
+            // height: inherit
+            overflow-y: scroll
+            margin: 5px 0 0 5px
+            padding-right: 5px
+            &::-webkit-scrollbar
+                // полоса прокрутки (скроллбар)
+                width: 7px
+                // background-color: #f1f1f1
+            &::-webkit-scrollbar-thumb
+                // ползунок скроллбара
+                background-color: #b1b1b1
+                border-radius: 3em
+            &::-webkit-scrollbar-thumb:hover 
+                background-color: #797979
+            .comment
+                position: relative
+                padding: 2px 5px
+                margin-bottom: 5px
+                border-radius: 10px
+                background: #ffffffe3
+            .comment-verified
+                position: absolute
+                right: 5px
+                top: 0
+                color: #a19c9c
+                i
+                    font-size: 24px
+                    line-height: 24px
+            .comment-verified-true
+                color: #16d763
+            .comment .comment-recipient
+                white-space: nowrap
+                overflow: hidden
+                text-overflow: ellipsis
+                font-size: calc(16px - .125rem)
+                font-weight: 500
+                line-height: 0.9rem
+                color: #3390ec
+                unicode-bidi: plaintext
+                display: flex
+                span
+                    overflow: hidden
+                    text-overflow: ellipsis
+                    cursor: pointer
+            .comment .comment-text-content
+                font-size: 15px
+                line-height: 1.2rem
+                // line-height: 1.3125
+            .comment .comment-date
+                display: flex
+                justify-content: flex-end
+                color: #8b8b8b
+                font-size: 12px
+                line-height: 0.8rem
+                white-space: nowrap
+        // спиннер - загрузка комментариев
+        .pane .comment-list-spinner
+            margin-top: 25px
+        // панель - КОММЕНТАРИИ - отправить
+        .pane .comment-send
+            display: grid
+            grid-template-columns: 1fr 35px
+            border-top: 1px solid #adabab
+            .comment-send-input
+                max-height: 75px
+                overflow-y: scroll
+                background: #fff
+                outline: none
+                border-bottom-left-radius: 5px
+                cursor: text
+                &:focus-visible
+                    border: none
+                &::-webkit-scrollbar
+                    // полоса прокрутки (скроллбар)
+                    width: 7px
+                    background-color: #ffffff00
+                    cursor: pointer
+                &::-webkit-scrollbar-thumb
+                    // ползунок скроллбара
+                    background-color: #c0c0c0
+                    cursor: pointer
+                &::-webkit-scrollbar-thumb:hover 
+                    background-color: #797979
+            .comment-send-enter
+                display: flex
+                align-items: center
+                justify-content: center
+                background: #fff
+                border-left: 1px solid #dfdfdf
+                border-bottom-right-radius: 5px
+                p
+                    margin: 0
+                    transform: scaleY(1.2)
+                    font-size: 22px
+                    color: #a9a3a3
+                    cursor: pointer
+                p:hover
+                    color: #575656
+        // панель - ЗВОНКИ
+        .pane .calls-list
+            // height: 350px
+            height: 100%
+            overflow-y: scroll
+            margin: 5px 0 0 5px
+            padding-right: 5px
+            &::-webkit-scrollbar
+                // полоса прокрутки (скроллбар)
+                width: 7px
+                // background-color: #f1f1f1
+            &::-webkit-scrollbar-thumb
+                // ползунок скроллбара
+                background-color: #ffffff
+                border-radius: 3em
+            &::-webkit-scrollbar-thumb:hover 
+                background-color: #33648b
+            .calls-item
+                display: flex
+                flex-direction: column
+                padding: 0px 5px
+                margin-bottom: 5px
+                border-radius: 10px
+                background: #ffffffe3
+            .calls-item div
+                font-size: 14px
+                color: #666
+            .calls-item span
+                font-weight: 600
+                color: #424242
+            .calls-item .data-col-2
+                display: grid
+                grid-template-columns: 1fr 1fr
+                white-space: nowrap
+            .calls-item .calls-play audio
+                width: 100%
+                height: 20px
+        // спиннер - загрузка звонков
+        .pane .calls-list-spinner
+            margin-top: 25px
+ 

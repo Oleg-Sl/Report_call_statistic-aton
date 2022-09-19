@@ -1,0 +1,60 @@
+// Modal window - выбор данных для статистики
+#modalSelectDepartAndEmploye
+    #modalSelectDepartAndEmployeContainer
+        display: grid
+        grid-gap: 15px
+    .select-depart-statistic
+        padding: 10px
+        border-radius: 5px
+        background: #f9fafd
+        border: 1px solid #ebefff
+    .select-depart-statistic .select-depart-statistic-header
+        font-size: 17px
+        font-weight: 600
+        line-height: 22px
+        margin-bottom: 10px
+    .select-depart-statistic .select-depart-statistic-content
+        li
+            padding: 0
+            background-color: transparent
+            border: 0
+            font-size: 14px
+            border-radius: 0 !important
+        ul li
+            margin-left: 7px
+            padding-left: 7px
+            &:not(:last-child)      // все теги <li> кроме последнего
+                border-left: 1px solid #d3d3d3
+            &:not(:last-child):before
+                content: ""
+                position: absolute
+                top: 0
+                left: 0
+                color: red
+                height: 10px
+                width: 5px
+                border-bottom: 1px solid #d3d3d3
+            &:last-child::before    // последний тег <li>
+                content: ""
+                position: absolute
+                top: 0
+                left: 0
+                color: red
+                height: 10px
+                width: 5px
+                border-left: 1px solid #d3d3d3
+                border-bottom: 1px solid #d3d3d3
+
+    .select-employe-statistic
+        padding: 10px
+        border-radius: 5px
+        background: #f9fafd
+        border: 1px solid #ebefff
+    .select-employe-statistic .select-employe-statistic-header
+        font-size: 17px
+        font-weight: 600
+        line-height: 22px
+        margin-bottom: 10px
+    .select-employe-statistic .select-employe-statistic-content
+        li
+            padding: 0 20px

@@ -1,0 +1,194 @@
+// Шрифты в строках таблицы
+$font-header: bold 12px Arial,"Helvetica Neue",Helvetica,sans-serif               // шрифт в заголовке таблицы
+$font-body: normal 14px/17px Arial,"Helvetica Neue",Helvetica,sans-serif          // шрифт в теле таблицы
+$font-color-header: #746c6c                                                     // цвет шрифта в заголовке таблицы
+$font-color-tbody: #616060                                                      // цвет шрифта в теле таблицы
+
+// Фон
+$background-header: #dbe8fa                     // цвет фона заголовка таблицы
+$background-body-head: #dbd9f7                  // цвет фона строки руководителя подразделения
+$background-body-employe: #ffffff               // цвет фона строки сотрудника подразделения
+$background-body-employe-hover: #efefef         // цвет фона строки сотрудника подразделения при наведении
+$background-body-summary: #c3d3ff               // цвет фона строки с итоговыми данными
+
+// Границы
+$border-header: 2px solid #dee2e6               // граница заголовка таблицы
+$border-body: 1px solid #dee2e6                 // граница заголовка таблицы
+$border-body-separator: 2px solid #8a8a8a       // граница заголовка таблицы
+
+
+// Фильтр таблицы "Статистика за год по месяцам"
+#tableByMonthFilter
+    display: grid
+    grid-template-columns: 200px 150px 1fr
+    grid-column-gap: 15px
+    margin: 15px 15px 0 15px
+
+
+// Спиннер загрузки данных таблицы "Статистика за год по месяцам"
+#tableByMonthSpinner
+    height: 50px
+    margin: 25px 0
+    display: flex
+    justify-content: center
+
+
+// Таблица "Статистика за год по месяцам"
+#tableStatisticMonth
+    transition: opacity 1.5s ease, transform 1.5s ease
+    overflow-x: auto
+    user-select: none
+    width: 100%
+    flex: 1
+    display: grid
+    grid-template-columns: 200px repeat(48, 65px)
+
+    thead
+        display: contents
+        
+        tr 
+            display: contents
+
+            th
+                position: relative
+                background: $background-header
+                border: $border-header
+                overflow: hidden
+                text-overflow: ellipsis
+                font: $font-header
+                text-align: center
+                text-transform: uppercase
+                text-shadow: 1px 1px 1px #fff
+                color: $font-color-header
+                z-index: 100
+
+                & input
+                    background: none
+                    border: none
+                    width: 100%
+                    text-align: end
+
+            // первая ячейка - первой строки
+            &:first-child
+                th
+                    &:nth-child(1)
+                        grid-row: 1/5
+                        position: relative
+                        z-index: 110
+                    
+    tbody
+        display: contents
+
+        tr 
+            display: contents
+        
+            td
+                position: relative
+                height: 100%
+                padding: 3px
+                overflow: hidden
+                background: $background-body-employe
+                border: $border-body
+                font: $font-body
+                text-overflow: ellipsis         // если контент не помещается в блок - завершение "..."
+                text-align: right
+                color: $font-color-tbody
+                
+                & input
+                    background: none
+                    border: none
+                    width: 100%
+                    text-align: end
+
+                // первый столбец
+                &:nth-child(1)
+                    position: relative
+                    z-index: 90
+                    text-align: left
+
+                &.table_by-month-border-left
+                    border-left: $border-body-separator
+                
+                // показать маркер
+                &.marker-display
+                    display: flex
+                    justify-content: space-between
+
+                    .count-calls-depart-marker
+                        width: 15px
+                        height: 15px
+                        float: left
+                        background: #e49191
+                        border-radius: 50%
+                        margin: 1px 0
+
+                    input
+                        width: calc( 100% - 15px )
+
+                &.is-comments:before
+                    content: ""
+                    position: absolute
+                    top: 0
+                    left: 0
+                    border: 9px solid transparent
+                    border-left: 9px solid #26c355
+                    border-top: 9px solid #26c355
+                
+                .count-comments
+                    display: none
+                    position: absolute
+                    top: 0
+                    left: 0
+                    background: none
+                    font-style: italic
+                    font-size: 10px
+                    line-height: 10px
+                    color: #777777
+                    width: 10px
+                    text-align: center
+                
+                &.is-comments .count-comments
+                    display: block
+
+            
+            &:hover td
+                background: $background-body-employe-hover
+
+            &.head-department
+                td
+                    background: $background-body-head !important
+                    // background: #dbd9f7 !important
+
+            &.footer-departments
+                td
+                    background: $background-body-summary !important
+                    // background: #c3d3ff !important
+                
+                .table-by-month-first-column
+                    font-weight: 600
+
+
+$i: 2
+@while  $i < 26
+    #tableStatisticMonth thead tr:first-child th:nth-child(#{$i})
+        grid-column: #{2 * $i - 2}/#{2 * $i - 2 + 3}
+    #tableStatisticMonth thead tr:first-child th:nth-child(#{$i + 1})
+        grid-column: #{2 * $i - 2 + 3}/#{2 * $i - 2 + 4}
+
+    $i: $i + 2
+
+
+@for $i from 1 through 12
+    #tableStatisticMonth thead tr:nth-child(2) th:nth-child(#{$i})
+        grid-column: #{4 * $i - 2}/#{4 * $i - 2 + 4}
+    
+
+
+$k: 2
+@while  $k < 26
+    #tableStatisticMonth thead tr:nth-child(3) th:nth-child(#{$k - 1})
+        grid-column: #{2 * $k - 2}/#{2 * $k - 2 + 3}
+    #tableStatisticMonth thead tr:nth-child(3) th:nth-child(#{$k})
+        grid-column: #{2 * $k - 2 + 3}/#{2 * $k - 2 + 4}
+
+    $k: $k + 2
