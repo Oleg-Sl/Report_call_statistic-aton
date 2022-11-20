@@ -445,16 +445,17 @@ class RationActiveByMonthApiView(views.APIView):
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
-            CREATED__year=year,
+            phone__CALL_START_DATE__year=year,
+            # CREATED__year=year,
             TYPE_ID=2,
             DIRECTION=2,
             phone__CALL_DURATION__gte=duration,
             # DURATION__gte=duration,
             active=True
         ).distinct(
-            'RESPONSIBLE_ID', 'CREATED__month', 'CREATED__day', 'COMPANY_ID'
+            'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
-            "RESPONSIBLE_ID", 'CREATED__month'
+            "RESPONSIBLE_ID", 'phone__CALL_START_DATE__month'
         )
 
         calls = Counter(queryset_calls)
@@ -584,16 +585,18 @@ class RationActiveByDayApiView(views.APIView):
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
-            CREATED__year=year,
-            CREATED__month=month,
+            # CREATED__year=year,
+            phone__CALL_START_DATE__year=year,
+            phone__CALL_START_DATE__month=month,
+            # CREATED__month=month,
             TYPE_ID=2,
             DIRECTION=2,
             phone__CALL_DURATION__gte=duration,
             active=True
         ).distinct(
-            'RESPONSIBLE_ID', 'CREATED__month', 'CREATED__day', 'COMPANY_ID'
+            'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
-            "RESPONSIBLE_ID", 'CREATED__day'
+            "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
         )
 
         calls = Counter(queryset_calls)
