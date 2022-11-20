@@ -689,9 +689,9 @@ class CallsViewSet(viewsets.ModelViewSet):
         DIRECTION=2,
         active=True
     ).distinct(
-        'CREATED__month', 'CREATED__day', 'COMPANY_ID'
+        'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
     ).order_by(
-        'CREATED__month', 'CREATED__day', 'COMPANY_ID', 'CREATED'
+        'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID', 'phone__CALL_START_DATE'
     )
     serializer_class = ActivitySerializer
     filter_backends = [DjangoFilterBackend, ]

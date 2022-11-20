@@ -277,7 +277,7 @@ export default class WindowInfo {
         // формирование HTML-кода для контейнера списка звонков
         for (let call of callsSort) {
             // дата совершения звонка
-            let date = new Date(call.CREATED);
+            let date = new Date(call.CALL_START_DATE);
             // ссылка на сущность к которой привязан звонок
             let hrefOwner = `${OWNER_TYPE_URL[call.OWNER_TYPE_ID]}${call.OWNER_ID}/`;
             // ссылка на компанию к которой привязан звонок
@@ -306,8 +306,10 @@ export default class WindowInfo {
     async getCalls(recipient, dateStart, dataEnd, duration) {
         let params = {
             RESPONSIBLE_ID: recipient,
-            CREATED_after: dateStart,
-            CREATED_before: dataEnd,
+            //            CREATED_after: dateStart,
+            //            CREATED_before: dataEnd,
+            CALL_START_DATE_after: dateStart,
+            CALL_START_DATE_before: dataEnd,
             CALL_DURATION: duration
         }
 
@@ -318,8 +320,8 @@ export default class WindowInfo {
     }
     
     sortFunc(obj1, obj2) {
-        let dateOne = new Date(obj1.CREATED);
-        let dateTwo = new Date(obj2.CREATED);
+        let dateOne = new Date(obj1.CALL_START_DATE);
+        let dateTwo = new Date(obj2.CALL_START_DATE);
         return dateOne - dateTwo;
     }
 }

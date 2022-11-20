@@ -15,11 +15,12 @@ from activityapp.models import (
 
 class CallsFilter(filters.FilterSet):
     CREATED = filters.DateFromToRangeFilter()
+    CALL_START_DATE = filters.DateFromToRangeFilter(field_name='phone__CALL_START_DATE')
     CALL_DURATION = filters.NumberFilter(field_name='phone__CALL_DURATION', lookup_expr='gte')
 
     class Meta:
         model = Activity
-        fields = ["RESPONSIBLE_ID", "CREATED", "CALL_DURATION", ]
+        fields = ["RESPONSIBLE_ID", "CREATED", "CALL_DURATION", "CALL_START_DATE"]
 
 
 class CommentFilter(filters.FilterSet):

@@ -14,7 +14,7 @@ from activityapp.models import (
 class PhoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Phone
-        fields = ('PHONE_NUMBER', 'CALL_DURATION', )
+        fields = ('PHONE_NUMBER', 'CALL_DURATION', 'CALL_START_DATE', )
 
 
 class ActivityFullSerializer(serializers.ModelSerializer):
