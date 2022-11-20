@@ -277,7 +277,7 @@ export default class WindowInfo {
         // формирование HTML-кода для контейнера списка звонков
         for (let call of callsSort) {
             // дата совершения звонка
-            let date = new Date(call.CALL_START_DATE);
+            let date = new Date(call.phone[0].CALL_START_DATE);
             // ссылка на сущность к которой привязан звонок
             let hrefOwner = `${OWNER_TYPE_URL[call.OWNER_TYPE_ID]}${call.OWNER_ID}/`;
             // ссылка на компанию к которой привязан звонок
