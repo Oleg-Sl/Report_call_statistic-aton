@@ -320,8 +320,8 @@ export default class WindowInfo {
     }
     
     sortFunc(obj1, obj2) {
-        let dateOne = new Date(obj1.CALL_START_DATE);
-        let dateTwo = new Date(obj2.CALL_START_DATE);
+        let dateOne = new Date(obj1.phone[0].CALL_START_DATE);
+        let dateTwo = new Date(obj2.phone[0].CALL_START_DATE);
         return dateOne - dateTwo;
     }
 }
