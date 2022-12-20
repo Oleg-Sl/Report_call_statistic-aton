@@ -101,9 +101,11 @@ class App {
         // Получение настроек приложения для вывода статистики
         await this.getDepartments();                            // получение выбранных (сохраненного) в настройках списка подразделений
 
+        this.headDepart = await this.getListDepartmentHeads();                      // руководители подразделений
+
         // Вывод таблицы с данными по месяцам
-        // await this.renderTableByMonth();                        // вывод таблицы статистика по месяцам
-        this.renderTableByDay();                                // вывод таблицы статистика по месяцам
+        await this.renderTableByMonth();                        // вывод таблицы статистика по месяцам
+        // await this.renderTableByDay();                                // вывод таблицы статистика по месяцам
 
         this.initHandler();                                     // инициализация обработчиков событий приложения
     }
@@ -257,7 +259,7 @@ class App {
         let deadline = await this.settingsOtherSettings.getSaveCountDays();         // дедлайна на редактирование
         let period = await this.settingsOtherSettings.getSavePeriodUpdate();        // периода обновления данных таблицы
         let countWorking = await this.getCountWorkingDay(actualYear);               // список количества рабочих дней по месяцам
-        this.headDepart = await this.getListDepartmentHeads();                      // руководители подразделений
+        // this.headDepart = await this.getListDepartmentHeads();                      // руководители подразделений
         let statisticData = await this.getStatisticByMonth(actualYear);             // данные статистики по месяцам
 
         let params = {
@@ -354,7 +356,7 @@ class App {
        
         await Promise.all(promiseList).then(() => {
         })
-
+        console.log("headByDepart = ", headByDepart);
         return headByDepart;
     }
 
