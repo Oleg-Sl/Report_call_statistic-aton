@@ -104,8 +104,8 @@ class App {
         this.headDepart = await this.getListDepartmentHeads();                      // руководители подразделений
 
         // Вывод таблицы с данными по месяцам
-        await this.renderTableByMonth();                        // вывод таблицы статистика по месяцам
-        // await this.renderTableByDay();                                // вывод таблицы статистика по месяцам
+        // await this.renderTableByMonth();                        // вывод таблицы статистика по месяцам
+        await this.renderTableByDay();                                // вывод таблицы статистика по месяцам
 
         this.initHandler();                                     // инициализация обработчиков событий приложения
     }
@@ -356,7 +356,7 @@ class App {
        
         await Promise.all(promiseList).then(() => {
         })
-        console.log("headByDepart = ", headByDepart);
+        // console.log("headByDepart = ", headByDepart);
         return headByDepart;
     }
 
