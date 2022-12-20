@@ -331,7 +331,8 @@ class App {
             interval,
             params
         );
-
+        
+        console.log("ВЫВОД СТАТИСТИКИ ПО ДНЯМ");
         // показ таблицы и сокрытие спиннера
         this.elementTableByDay.classList.remove("d-none");
         this.containerSpinnerByDay.classList.add("d-none");
