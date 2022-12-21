@@ -10,7 +10,7 @@ from django_filters import rest_framework as filters_drf
 
 from django.db import models
 from django.core.cache import cache
-
+from django.views.decorators.cache import cache_page
 
 import os
 import logging
@@ -69,12 +69,14 @@ from .serializers import (
 )
 
 
+@cache_page(60 * 60 * 4)
 class UsersDataFilter(filters_drf.FilterSet):
     class Meta:
         model = User
         fields = ["UF_DEPARTMENT", "ALLOWED_EDIT", "ALLOWED_SETTING", ]
 
 
+@cache_page(60 * 60 * 4)
 class UsersViewSet(viewsets.ModelViewSet):
     queryset = User.objects.filter(ACTIVE=True).order_by("LAST_NAME", "NAME")
     serializer_class = UsersUpdateSerializer
