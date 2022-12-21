@@ -31,7 +31,7 @@ app_name = 'api_v3'
 
 
 router = routers.DefaultRouter()
-router.register(r'users', cache_page(60 * 60 * 4)(UsersViewSet))
+router.register(r'users', UsersViewSet)
 router.register(r'calls', CallsViewSet)
 router.register(r'comment', CommentViewSet)
 
