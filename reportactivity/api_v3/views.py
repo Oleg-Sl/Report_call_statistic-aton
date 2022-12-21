@@ -9,7 +9,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters_drf
 
 from django.db import models
-
+from django.core.cache import cache
 
 
 import os
@@ -427,9 +427,7 @@ class RationActiveByMonthApiView(views.APIView):
         departs = request.data.get("depart", 1)
         year = request.data.get("year", 2021)
         duration = request.data.get("duration", 20)
-
         departments = departs.split(",")
-        # departments = ["107", "241", "133", "52", "50"]
 
         # получение списка пользователей
         users = User.objects.filter(
@@ -439,6 +437,9 @@ class RationActiveByMonthApiView(views.APIView):
         ).values(
             "ID", "LAST_NAME", "NAME", "UF_DEPARTMENT"
         ).order_by("LAST_NAME", "NAME")
+        # cache.set('my_key', 'hello, world!', 30)
+        # cache.add('add_key', 'New value')
+        # cache.get('add_key')
 
         # получение фактического количества звонков по месяцам
         queryset_calls = Activity.objects.filter(
@@ -446,11 +447,9 @@ class RationActiveByMonthApiView(views.APIView):
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
             phone__CALL_START_DATE__year=year,
-            # CREATED__year=year,
             TYPE_ID=2,
             DIRECTION=2,
             phone__CALL_DURATION__gte=duration,
-            # DURATION__gte=duration,
             active=True
         ).distinct(
             'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
@@ -497,15 +496,6 @@ class RationActiveByMonthApiView(views.APIView):
             'employee', 'count_calls_avg', 'calendar__date_calendar__month'
         )
 
-        # calls = {}
-        # for user_id, month_num in queryset_calls:
-        #     if user_id not in calls:
-        #         calls[user_id] = {}
-        #     if month_num not in calls[user_id]:
-        #         calls[user_id][month_num] = 1
-        #     else:
-        #         calls[user_id][month_num] += 1
-
         data = {}
         for department in departments:
             data[department] = []
@@ -522,11 +512,6 @@ class RationActiveByMonthApiView(views.APIView):
         for (user_id, month_num), count in calls.items():
             if user_id in data_user:
                 data_user[user_id]["calls_fact"][month_num] = count
-
-        # for user_id, data_by_month in calls.items():
-        #     for month_num, count in data_by_month.items():
-        #         if user_id in data_user:
-        #             data_user[user_id]["calls_fact"][month_num] = count
 
         for meeting in meetings:
             user = meeting["RESPONSIBLE_ID"]

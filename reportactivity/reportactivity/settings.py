@@ -168,6 +168,13 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/10',
+    }
+}
+
 # Celery and Redis
 REDIS_HOST = '127.0.0.1'
 REDIS_PORT = '6379'
