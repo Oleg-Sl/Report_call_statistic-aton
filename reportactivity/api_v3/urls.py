@@ -1,6 +1,7 @@
 from django.urls import include, path
 from rest_framework import routers
 from django.views.decorators.cache import cache_page
+from django.conf import settings
 
 from .views import (
     UsersViewSet,
@@ -77,6 +78,10 @@ urlpatterns = [
     path('active-by-day/', RationActiveByDayApiView.as_view()),
 
 ]
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]
+    urlpatterns += [path('index/__debug__/', include(debug_toolbar.urls))]
 
 
 urlpatterns += router.urls
