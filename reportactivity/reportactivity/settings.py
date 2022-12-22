@@ -44,8 +44,8 @@ INSTALLED_APPS = [
     'djoser',
     'rest_framework_simplejwt',
 
-    'debug_toolbar',
-    'template_profiler_panel',
+    # 'debug_toolbar',
+    # 'template_profiler_panel',
 
     'activityapp',
     'api_v1',
@@ -65,7 +65,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'reportactivity.urls'
