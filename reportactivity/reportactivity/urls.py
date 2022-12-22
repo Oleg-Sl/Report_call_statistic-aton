@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+
 
 urlpatterns = [
     path('calls-statistic/admin/', admin.site.urls),
@@ -12,3 +14,8 @@ urlpatterns = [
     path('calls-statistic/auth/', include('djoser.urls')),
     path('calls-statistic/auth/', include('djoser.urls.jwt')),
 ]
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [path(r'__debug__/', include(debug_toolbar.urls))]
