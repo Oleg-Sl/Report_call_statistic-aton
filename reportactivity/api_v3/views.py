@@ -502,6 +502,71 @@ def get_meetings_by_month(departments, year):
     return meetings
 
 
+def get_calls_by_day(departments, year, month, duration):
+    departs_str = ','.join([str(i) for i in sorted(departments)])
+    key = f"calls_departs_{departs_str}_year_{year}_month_{month}"
+    calls = cache.get(key)
+    now = datetime.datetime.now()
+    if calls is None:
+        queryset_calls = Activity.objects.filter(
+            RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
+            RESPONSIBLE_ID__ACTIVE=True,
+            RESPONSIBLE_ID__STATUS_DISPLAY=True,
+            phone__CALL_START_DATE__year=year,
+            phone__CALL_START_DATE__month=month,
+            TYPE_ID=2,
+            DIRECTION=2,
+            phone__CALL_DURATION__gte=duration,
+            active=True
+        ).distinct(
+            'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
+        ).values_list(
+            "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
+        )
+        calls = Counter(queryset_calls)
+        cache.set(key, calls, CASH_TIMMEOUT)
+    elif str(year) == str(now.year) and str(month) == str(now.month):
+        queryset_calls = Activity.objects.filter(
+            RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
+            RESPONSIBLE_ID__ACTIVE=True,
+            RESPONSIBLE_ID__STATUS_DISPLAY=True,
+            phone__CALL_START_DATE__year=year,
+            phone__CALL_START_DATE__month=month,
+            phone__CALL_START_DATE__day=now.day,
+            TYPE_ID=2,
+            DIRECTION=2,
+            phone__CALL_DURATION__gte=duration,
+            active=True
+        ).distinct(
+            'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
+        ).values_list(
+            "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
+        )
+        calls_new = Counter(queryset_calls)
+        calls.update(calls_new)
+
+    return calls
+
+
+def get_meetings_by_day(departments, year, month):
+    meetings = Activity.objects.filter(
+        RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
+        RESPONSIBLE_ID__ACTIVE=True,
+        RESPONSIBLE_ID__STATUS_DISPLAY=True,
+        END_TIME__year=year,
+        END_TIME__month=month,
+        TYPE_ID=1,
+        active=True,
+        COMPLETED="Y"
+    ).values(
+        "RESPONSIBLE_ID", 'END_TIME__day'
+    ).annotate(
+        counts=models.Count('END_TIME')
+    )
+
+    return meetings
+
+
 # получение данных сгруппированных по месяцам одного года
 class RationActiveByMonthApiView(views.APIView):
     permission_classes = [IsAuthenticated]
@@ -597,49 +662,16 @@ class RationActiveByDayApiView(views.APIView):
         year = request.data.get("year", 2021)
         month = request.data.get("month", 11)
         duration = request.data.get("duration", 20)
-
         departments = departs.split(",")
-        # departments = ["107", "241", "133", "52", "50"]
 
         # получение списка пользователей
         users = get_users_by_depeartments(departments)
 
         # получение фактического количества звонков по дням за месяц
-        queryset_calls = Activity.objects.filter(
-            RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
-            RESPONSIBLE_ID__ACTIVE=True,
-            RESPONSIBLE_ID__STATUS_DISPLAY=True,
-            # CREATED__year=year,
-            phone__CALL_START_DATE__year=year,
-            phone__CALL_START_DATE__month=month,
-            # CREATED__month=month,
-            TYPE_ID=2,
-            DIRECTION=2,
-            phone__CALL_DURATION__gte=duration,
-            active=True
-        ).distinct(
-            'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
-        ).values_list(
-            "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
-        )
+        calls = get_calls_by_day(departments, year, month, duration)
 
-        calls = Counter(queryset_calls)
-
-        # # получение фактического количества встреч по дням за месяц
-        meetings = Activity.objects.filter(
-            RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
-            RESPONSIBLE_ID__ACTIVE=True,
-            RESPONSIBLE_ID__STATUS_DISPLAY=True,
-            END_TIME__year=year,
-            END_TIME__month=month,
-            TYPE_ID=1,
-            active=True,
-            COMPLETED="Y"
-        ).values(
-            "RESPONSIBLE_ID", 'END_TIME__day'
-        ).annotate(
-            counts=models.Count('END_TIME')
-        )
+        # получение фактического количества встреч по дням за месяц
+        meetings = get_meetings_by_day(departments, year, month)
 
         # получение списка комментариев
         comments = Comment.objects.filter(
