@@ -69,6 +69,8 @@ from .serializers import (
 )
 
 
+CASH_TIMMEOUT = 60 * 60 * 8
+
 # @cache_page(60 * 60 * 4)
 class UsersDataFilter(filters_drf.FilterSet):
     class Meta:
@@ -421,17 +423,11 @@ def create_calendar(year, month):
     return False, serializer.errors
 
 
-# получение данных сгруппированных по месяцам одного года
-class RationActiveByMonthApiView(views.APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        departs = request.data.get("depart", 1)
-        year = request.data.get("year", 2021)
-        duration = request.data.get("duration", 20)
-        departments = departs.split(",")
-
-        # получение списка пользователей
+def get_users_by_depeartments(departments):
+    departs_str = ','.join([str(i) for i in sorted(departments)])
+    key = f"users_departs_{departs_str}"
+    users = cache.get(key)
+    if users is None:
         users = User.objects.filter(
             UF_DEPARTMENT__in=departments,
             ACTIVE=True,
@@ -439,11 +435,17 @@ class RationActiveByMonthApiView(views.APIView):
         ).values(
             "ID", "LAST_NAME", "NAME", "UF_DEPARTMENT"
         ).order_by("LAST_NAME", "NAME")
-        # cache.set('my_key', 'hello, world!', 30)
-        # cache.add('add_key', 'New value')
-        # cache.get('add_key')
+        cache.set(key, users, CASH_TIMMEOUT)
 
-        # получение фактического количества звонков по месяцам
+    return users
+
+
+def get_calls_by_month(departments, year, duration):
+    departs_str = ','.join([str(i) for i in sorted(departments)])
+    key = f"calls_departs_{departs_str}_year_{year}"
+    calls = cache.get(key)
+    now = datetime.datetime.now()
+    if calls is None:
         queryset_calls = Activity.objects.filter(
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
@@ -458,23 +460,66 @@ class RationActiveByMonthApiView(views.APIView):
         ).values_list(
             "RESPONSIBLE_ID", 'phone__CALL_START_DATE__month'
         )
-
         calls = Counter(queryset_calls)
-
-        # получение фактического количества встреч по месяцам
-        meetings = Activity.objects.filter(
+        cache.set(key, calls, CASH_TIMMEOUT)
+    elif year == now.year or str(year) == str(now.year):
+        queryset_calls = Activity.objects.filter(
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
-            END_TIME__year=year,
-            TYPE_ID=1,
-            active=True,
-            COMPLETED="Y"
-        ).values(
-            "RESPONSIBLE_ID", 'END_TIME__month'
-        ).annotate(
-            counts=models.Count('END_TIME')
+            phone__CALL_START_DATE__year=year,
+            phone__CALL_START_DATE__month=now.month,
+            TYPE_ID=2,
+            DIRECTION=2,
+            phone__CALL_DURATION__gte=duration,
+            active=True
+        ).distinct(
+            'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
+        ).values_list(
+            "RESPONSIBLE_ID", 'phone__CALL_START_DATE__month'
         )
+        calls_new = Counter(queryset_calls)
+        calls.update(calls_new)
+
+    return calls
+
+
+def get_meetings_by_month(departments, year):
+    meetings = Activity.objects.filter(
+        RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
+        RESPONSIBLE_ID__ACTIVE=True,
+        RESPONSIBLE_ID__STATUS_DISPLAY=True,
+        END_TIME__year=year,
+        TYPE_ID=1,
+        active=True,
+        COMPLETED="Y"
+    ).values(
+        "RESPONSIBLE_ID", 'END_TIME__month'
+    ).annotate(
+        counts=models.Count('END_TIME')
+    )
+
+    return meetings
+
+
+# получение данных сгруппированных по месяцам одного года
+class RationActiveByMonthApiView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        departs = request.data.get("depart", 1)
+        year = request.data.get("year", 2021)
+        duration = request.data.get("duration", 20)
+        departments = departs.split(",")
+
+        # получение списка пользователей
+        users = get_users_by_depeartments(departments)
+
+        # получение фактического количества звонков по месяцам
+        calls = get_calls_by_month(departments, year, duration)
+
+        # получение фактического количества встреч по месяцам
+        meetings = get_meetings_by_month(departments, year)
 
         # получение списка комментариев
         comments = Comment.objects.filter(
@@ -557,15 +602,7 @@ class RationActiveByDayApiView(views.APIView):
         # departments = ["107", "241", "133", "52", "50"]
 
         # получение списка пользователей
-        users = User.objects.filter(
-            UF_DEPARTMENT__in=departments,
-            ACTIVE=True,
-            STATUS_DISPLAY=True,
-        ).values(
-            "ID", "LAST_NAME", "NAME", "UF_DEPARTMENT"
-        ).order_by(
-            "LAST_NAME", "NAME"
-        )
+        users = get_users_by_depeartments(departments)
 
         # получение фактического количества звонков по дням за месяц
         queryset_calls = Activity.objects.filter(
@@ -673,6 +710,7 @@ class RationActiveByDayApiView(views.APIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
+# Получение звоков за выбранный период
 class CallsViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.filter(
         TYPE_ID=2,
@@ -689,6 +727,7 @@ class CallsViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
 
+# Получение, добавление, обновление комментариев
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer

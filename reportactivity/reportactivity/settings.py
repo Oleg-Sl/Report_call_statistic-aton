@@ -24,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rc+%o@!x#mxz9h#n7v9&n3_zhrr3zzegyz_d2_fysxbf-6$)mo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -146,11 +146,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'calls-statistic/static/'
-STATIC_ROOT = '/home/devuser/projects/callsstatistic/reportactivity/calls-statistic/static'
+STATIC_ROOT = '/home/oleg/PycharmProjects/aton/Report_call_statistic-aton/reportactivity/calls-statistic/static'
+
+# STATIC_ROOT = '/home/devuser/projects/callsstatistic/reportactivity/calls-statistic/static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
