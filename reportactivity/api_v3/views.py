@@ -8,7 +8,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from django_filters import rest_framework as filters_drf
 
-from django.db import models
+
 from django.core.cache import cache
 from django.views.decorators.cache import cache_page
 
@@ -70,6 +70,7 @@ from .serializers import (
 
 
 CASH_TIMMEOUT = 60 * 60 * 8
+
 
 # @cache_page(60 * 60 * 4)
 class UsersDataFilter(filters_drf.FilterSet):
@@ -479,7 +480,8 @@ def get_calls_by_month(departments, year, duration):
             "RESPONSIBLE_ID", 'phone__CALL_START_DATE__month'
         )
         calls_new = Counter(queryset_calls)
-        calls.update(calls_new)
+        # calls.update(calls_new)
+        calls = update_dict(calls, calls_new)
 
     return calls
 
@@ -543,7 +545,8 @@ def get_calls_by_day(departments, year, month, duration):
             "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
         )
         calls_new = Counter(queryset_calls)
-        calls.update(calls_new)
+        # calls.update(calls_new)
+        calls = update_dict(calls, calls_new)
 
     return calls
 
@@ -566,6 +569,11 @@ def get_meetings_by_day(departments, year, month):
 
     return meetings
 
+
+def update_dict(dict_old, dict_new):
+    for key, val in dict_new.items():
+        dict_old[key] = val
+    return dict_old
 
 # получение данных сгруппированных по месяцам одного года
 class RationActiveByMonthApiView(views.APIView):
