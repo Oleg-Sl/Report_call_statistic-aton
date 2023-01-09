@@ -109,7 +109,7 @@ class Phone(models.Model):
     PHONE_NUMBER = models.CharField(verbose_name='Номер телефона', max_length=20, blank=True, null=True)
     # PORTAL_USER_ID = models.PositiveIntegerField(verbose_name='ID пользователя в BX24')
     CALL_DURATION = models.PositiveIntegerField(verbose_name='Длительность звонка', db_index=True)
-    CALL_START_DATE = models.DateTimeField(verbose_name='Дата начала звонка')
+    CALL_START_DATE = models.DateTimeField(verbose_name='Дата начала звонка', db_index=True)
 
     CRM_ACTIVITY_ID = models.ForeignKey(Activity, verbose_name='Дело', on_delete=models.SET_NULL,
                                         related_name='phone', blank=True, null=True, db_index=True)
