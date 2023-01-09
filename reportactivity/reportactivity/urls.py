@@ -11,8 +11,6 @@ urlpatterns = [
     # используется сейчас
     path('calls-statistic/api/v3/', include('api_v3.urls', namespace='api_v3')),
 
-
-
     path('calls-statistic/auth/', include('djoser.urls')),
     path('calls-statistic/auth/', include('djoser.urls.jwt')),
 ]
