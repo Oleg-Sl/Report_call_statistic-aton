@@ -234,5 +234,5 @@ if DEBUG:
         'template_profiler_panel.panels.template.TemplateProfilerPanel',
     ]
 
-SILKY_PYTHON_PROFILER = True
-
+# SILKY_PYTHON_PROFILER = True
+SILKY_PYTHON_PROFILER_BINARY = True
