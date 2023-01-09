@@ -17,7 +17,7 @@ urlpatterns = [
     path('calls-statistic/auth/', include('djoser.urls.jwt')),
 ]
 
-urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]
+urlpatterns += [path('calls-statistic/silk/', include('silk.urls', namespace='silk'))]
 
 
 if settings.DEBUG:
