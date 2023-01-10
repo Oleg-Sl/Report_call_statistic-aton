@@ -114,7 +114,7 @@ class Phone(models.Model):
     CRM_ACTIVITY_ID = models.ForeignKey(Activity, verbose_name='Дело', on_delete=models.SET_NULL,
                                         related_name='phone', blank=True, null=True, db_index=True)
     PORTAL_USER_ID = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.SET_NULL,
-                                       related_name='phone', blank=True, null=True)
+                                       related_name='phone', blank=True, null=True, db_index=True)
 
     def __str__(self):
         return self.CALL_ID or "-"
@@ -160,10 +160,10 @@ class CallsPlan(models.Model):
 
 
 class Comment(models.Model):
-    recipient = models.ForeignKey(User, verbose_name='Получатель', on_delete=models.CASCADE, related_name='recipient')
+    recipient = models.ForeignKey(User, verbose_name='Получатель', on_delete=models.CASCADE, related_name='recipient', db_index=True)
     commentator = models.ForeignKey(User, verbose_name='Комментатор', on_delete=models.CASCADE, related_name='commentator')
-    date_comment = models.DateField(verbose_name='Дата комментария')
-    date_comment_add = models.DateTimeField(verbose_name='Дата добавления комментария')
+    date_comment = models.DateField(verbose_name='Дата комментария', db_index=True)
+    date_comment_add = models.DateTimeField(verbose_name='Дата добавления комментария', db_index=True)
     comment = models.TextField(verbose_name='Комментарий')
 
     verified = models.BooleanField(verbose_name='Комментарий подтвержден', default=False)
