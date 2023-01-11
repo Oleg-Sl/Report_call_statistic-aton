@@ -451,15 +451,19 @@ def get_calls_by_month(departments, year, duration):
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
-            phone__CALL_START_DATE__year=year,
+            # phone__CALL_START_DATE__year=year,
+            CALL_START_DATE__year=year,
             TYPE_ID=2,
             DIRECTION=2,
-            phone__CALL_DURATION__gte=duration,
+            # phone__CALL_DURATION__gte=duration,
+            CALL_DURATION__gte=duration,
             active=True
         ).distinct(
-            'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
+            # 'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
+            'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
-            "RESPONSIBLE_ID", 'phone__CALL_START_DATE__month'
+            # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__month'
+            "RESPONSIBLE_ID", 'CALL_START_DATE__month'
         )
         calls = Counter(queryset_calls)
         cache.set(key, calls, CASH_TIMMEOUT)
@@ -468,16 +472,21 @@ def get_calls_by_month(departments, year, duration):
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
-            phone__CALL_START_DATE__year=year,
-            phone__CALL_START_DATE__month=now.month,
+            # phdone__CALL_START_DATE__year=year,
+            CALL_START_DATE__year=year,
+            # phone__CALL_START_DATE__month=now.month,
+            CALL_START_DATE__month=now.month,
             TYPE_ID=2,
             DIRECTION=2,
-            phone__CALL_DURATION__gte=duration,
+            # phone__CALL_DURATION__gte=duration,
+            CALL_DURATION__gte=duration,
             active=True
         ).distinct(
-            'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
+            # 'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
+            'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
-            "RESPONSIBLE_ID", 'phone__CALL_START_DATE__month'
+            # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__month'
+            "RESPONSIBLE_ID", 'CALL_START_DATE__month'
         )
         calls_new = Counter(queryset_calls)
         # calls.update(calls_new)
@@ -514,16 +523,21 @@ def get_calls_by_day(departments, year, month, duration):
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
-            phone__CALL_START_DATE__year=year,
-            phone__CALL_START_DATE__month=month,
+            # phone__CALL_START_DATE__year=year,
+            CALL_START_DATE__year=year,
+            # phone__CALL_START_DATE__month=month,
+            CALL_START_DATE__month=month,
             TYPE_ID=2,
             DIRECTION=2,
-            phone__CALL_DURATION__gte=duration,
+            # phone__CALL_DURATION__gte=duration,
+            DURATION__gte=duration,
             active=True
         ).distinct(
-            'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
+            # 'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
+            'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
-            "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
+            # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
+            "RESPONSIBLE_ID", 'CALL_START_DATE__day'
         )
         calls = Counter(queryset_calls)
         cache.set(key, calls, CASH_TIMMEOUT)
@@ -532,17 +546,23 @@ def get_calls_by_day(departments, year, month, duration):
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
-            phone__CALL_START_DATE__year=year,
-            phone__CALL_START_DATE__month=month,
-            phone__CALL_START_DATE__day=now.day,
+            # phone__CALL_START_DATE__year=year,
+            # phone__CALL_START_DATE__month=month,
+            # phone__CALL_START_DATE__day=now.day,
+            CALL_START_DATE__year=year,
+            CALL_START_DATE__month=month,
+            CALL_START_DATE__day=now.day,
             TYPE_ID=2,
             DIRECTION=2,
-            phone__CALL_DURATION__gte=duration,
+            # phone__CALL_DURATION__gte=duration,
+            DURATION__gte=duration,
             active=True
         ).distinct(
-            'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
+            # 'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
+            'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
-            "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
+            # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
+            "RESPONSIBLE_ID", 'CALL_START_DATE__day'
         )
         calls_new = Counter(queryset_calls)
         # calls.update(calls_new)
