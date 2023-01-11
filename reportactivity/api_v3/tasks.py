@@ -71,7 +71,7 @@ def calls_task(calls):
     data["CRM_ACTIVITY_ID"] = calls.get("data[CRM_ACTIVITY_ID]", None)
 
     # обновление или сохранение активности
-    res_save_activity = update_or_save_activity(data["CRM_ACTIVITY_ID"], True)
+    res_save_activity = update_or_save_activity(data["CRM_ACTIVITY_ID"], True, data["CALL_DURATION"], data["CALL_START_DATE"])
 
     if not data["CALL_ID"]:
         logger_tasks_error.error({
@@ -183,7 +183,7 @@ def user_task(user):
 
 
 # получение или сохранение активности
-def update_or_save_activity(id_activity, active=True):
+def update_or_save_activity(id_activity, active=True, duration=None, calls_start_date=None):
     time_start = time.time()
     # результат выполнения запроса на получение данных активности
     result_req_activity = bx24.call("crm.activity.get", {"id": id_activity})
@@ -203,6 +203,10 @@ def update_or_save_activity(id_activity, active=True):
     data_activity = result_req_activity["result"]
     # добавление статуса активности: удалена или нет
     data_activity["active"] = active
+    if duration:
+        data_activity["DURATION"] = duration
+    if calls_start_date:
+        data_activity["CALL_START_DATE"] = calls_start_date
 
     # id ответственного
     id_responsible = data_activity.get("RESPONSIBLE_ID", None)

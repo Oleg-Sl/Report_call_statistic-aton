@@ -84,7 +84,8 @@ class Activity(models.Model):
     END_TIME = models.DateTimeField(verbose_name='Дата завершения дела', blank=True, null=True)
     FILES = models.URLField(verbose_name='URL привязанного файла', max_length=250, blank=True, null=True)
     active = models.BooleanField(verbose_name='Дело не удалено из Битрикс24', default=True, db_index=True)
-    # DURATION = models.PositiveIntegerField(verbose_name='Длительность звонка', db_index=True, blank=True, null=True)
+    DURATION = models.PositiveIntegerField(verbose_name='Длительность звонка', blank=True, null=True, db_index=True)
+    CALL_START_DATE = models.DateTimeField(verbose_name='Дата начала звонка', blank=True, null=True, db_index=True)
 
     RESPONSIBLE_ID = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.SET_NULL,
                                        related_name='activity', blank=True, null=True, db_index=True)
