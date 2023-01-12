@@ -462,7 +462,7 @@ def get_calls_by_month(departments, year, duration):
             TYPE_ID=2,
             DIRECTION=2,
             # phone__CALL_DURATION__gte=duration,
-            CALL_DURATION__gte=duration,
+            DURATION__gte=duration,
             active=True
         ).distinct(
             # 'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
@@ -485,7 +485,7 @@ def get_calls_by_month(departments, year, duration):
             TYPE_ID=2,
             DIRECTION=2,
             # phone__CALL_DURATION__gte=duration,
-            CALL_DURATION__gte=duration,
+            DURATION__gte=duration,
             active=True
         ).distinct(
             # 'RESPONSIBLE_ID', 'phone__CALL_START_DATE__month', 'phone__CALL_START_DATE__day', 'COMPANY_ID'
