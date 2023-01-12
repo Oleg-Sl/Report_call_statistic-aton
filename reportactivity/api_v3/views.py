@@ -69,7 +69,7 @@ from .serializers import (
 )
 
 
-CASH_TIMMEOUT = 60 * 60 * 8
+CASH_TIMMEOUT = 60 * 60 * 4
 
 
 # @cache_page(60 * 60 * 4)
@@ -86,6 +86,11 @@ class UsersViewSet(viewsets.ModelViewSet):
     filter_backends = [filters_drf.DjangoFilterBackend]
     filterset_class = UsersDataFilter
     permission_classes = [IsAuthenticated]
+
+    # @method_decorator(cache_page(60 * 2))
+    @cache_page(CASH_TIMMEOUT)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 # Обработчик установки приложения
@@ -472,7 +477,7 @@ def get_calls_by_month(departments, year, duration):
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
-            # phdone__CALL_START_DATE__year=year,
+            # phone__CALL_START_DATE__year=year,
             CALL_START_DATE__year=year,
             # phone__CALL_START_DATE__month=now.month,
             CALL_START_DATE__month=now.month,
