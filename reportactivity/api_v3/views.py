@@ -11,6 +11,7 @@ from django_filters import rest_framework as filters_drf
 
 from django.core.cache import cache
 from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 import os
 import logging
@@ -88,7 +89,7 @@ class UsersViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     # @method_decorator(cache_page(60 * 2))
-    @cache_page(CASH_TIMMEOUT)
+    @method_decorator(cache_page(CASH_TIMMEOUT))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
