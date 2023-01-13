@@ -453,7 +453,16 @@ def get_calls_by_month(departments, year, duration):
     calls = cache.get(key)
     now = datetime.datetime.now()
     if calls is None:
-        queryset_calls = Activity.objects.select_related("RESPONSIBLE_ID").filter(
+        queryset_calls = Activity.objects.select_related("RESPONSIBLE_ID").only(
+            "active",
+            "DURATION",
+            "DIRECTION",
+            "TYPE_ID",
+            "CALL_START_DATE",
+            "RESPONSIBLE_ID__STATUS_DISPLAY",
+            "RESPONSIBLE_ID__ACTIVE",
+            "RESPONSIBLE_ID__UF_DEPARTMENT"
+        ).filter(
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
@@ -474,7 +483,16 @@ def get_calls_by_month(departments, year, duration):
         calls = Counter(queryset_calls)
         cache.set(key, calls, CASH_TIMMEOUT)
     elif year == now.year or str(year) == str(now.year):
-        queryset_calls = Activity.objects.filter(
+        queryset_calls = Activity.objects.select_related("RESPONSIBLE_ID").only(
+            "active",
+            "DURATION",
+            "DIRECTION",
+            "TYPE_ID",
+            "CALL_START_DATE",
+            "RESPONSIBLE_ID__STATUS_DISPLAY",
+            "RESPONSIBLE_ID__ACTIVE",
+            "RESPONSIBLE_ID__UF_DEPARTMENT"
+        ).filter(
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
@@ -525,7 +543,16 @@ def get_calls_by_day(departments, year, month, duration):
     calls = cache.get(key)
     now = datetime.datetime.now()
     if calls is None:
-        queryset_calls = Activity.objects.filter(
+        queryset_calls = Activity.objects.select_related("RESPONSIBLE_ID").only(
+            "active",
+            "DURATION",
+            "DIRECTION",
+            "TYPE_ID",
+            "CALL_START_DATE",
+            "RESPONSIBLE_ID__STATUS_DISPLAY",
+            "RESPONSIBLE_ID__ACTIVE",
+            "RESPONSIBLE_ID__UF_DEPARTMENT"
+        ).filter(
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
@@ -548,7 +575,16 @@ def get_calls_by_day(departments, year, month, duration):
         calls = Counter(queryset_calls)
         cache.set(key, calls, CASH_TIMMEOUT)
     elif str(year) == str(now.year) and str(month) == str(now.month):
-        queryset_calls = Activity.objects.filter(
+        queryset_calls = Activity.objects.select_related("RESPONSIBLE_ID").only(
+            "active",
+            "DURATION",
+            "DIRECTION",
+            "TYPE_ID",
+            "CALL_START_DATE",
+            "RESPONSIBLE_ID__STATUS_DISPLAY",
+            "RESPONSIBLE_ID__ACTIVE",
+            "RESPONSIBLE_ID__UF_DEPARTMENT"
+        ).filter(
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
