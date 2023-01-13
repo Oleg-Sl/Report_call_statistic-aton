@@ -453,7 +453,7 @@ def get_calls_by_month(departments, year, duration):
     calls = cache.get(key)
     now = datetime.datetime.now()
     if calls is None:
-        queryset_calls = Activity.objects.filter(
+        queryset_calls = Activity.objects.select_related("RESPONSIBLE_ID").filter(
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
