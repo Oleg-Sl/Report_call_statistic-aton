@@ -435,7 +435,12 @@ def get_users_by_depeartments(departments):
     key = f"users_departs_{departs_str}"
     users = cache.get(key)
     if users is None:
-        users = User.objects.filter(
+        users = User.objects.only(
+            "UF_DEPARTMENT",
+            "ACTIVE",
+            "STATUS_DISPLAY",
+            "ID", "LAST_NAME", "NAME"
+        ).filter(
             UF_DEPARTMENT__in=departments,
             ACTIVE=True,
             STATUS_DISPLAY=True,
@@ -520,7 +525,15 @@ def get_calls_by_month(departments, year, duration):
 
 
 def get_meetings_by_month(departments, year):
-    meetings = Activity.objects.filter(
+    meetings = Activity.objects.select_related("RESPONSIBLE_ID").only(
+            "END_TIME",
+            "TYPE_ID",
+            "active",
+            "COMPLETED",
+            "RESPONSIBLE_ID__STATUS_DISPLAY",
+            "RESPONSIBLE_ID__ACTIVE",
+            "RESPONSIBLE_ID__UF_DEPARTMENT"
+        ).filter(
         RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
         RESPONSIBLE_ID__ACTIVE=True,
         RESPONSIBLE_ID__STATUS_DISPLAY=True,
@@ -614,7 +627,15 @@ def get_calls_by_day(departments, year, month, duration):
 
 
 def get_meetings_by_day(departments, year, month):
-    meetings = Activity.objects.filter(
+    meetings = Activity.objects.select_related("RESPONSIBLE_ID").only(
+            "END_TIME",
+            "TYPE_ID",
+            "active",
+            "COMPLETED",
+            "RESPONSIBLE_ID__STATUS_DISPLAY",
+            "RESPONSIBLE_ID__ACTIVE",
+            "RESPONSIBLE_ID__UF_DEPARTMENT"
+        ).filter(
         RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
         RESPONSIBLE_ID__ACTIVE=True,
         RESPONSIBLE_ID__STATUS_DISPLAY=True,
@@ -657,7 +678,12 @@ class RationActiveByMonthApiView(views.APIView):
         meetings = get_meetings_by_month(departments, year)
 
         # получение списка комментариев
-        comments = Comment.objects.filter(
+        comments = Comment.objects.select_related("recipient").only(
+            "recipient__UF_DEPARTMENT",
+            "recipient__ACTIVE",
+            "recipient__STATUS_DISPLAY",
+            "date_comment"
+        ).filter(
             recipient__UF_DEPARTMENT__in=departments,
             recipient__ACTIVE=True,
             recipient__STATUS_DISPLAY=True,
@@ -669,7 +695,11 @@ class RationActiveByMonthApiView(views.APIView):
         )
 
         # получение плана по звонкам
-        calls_plan = CallsPlan.objects.filter(
+        calls_plan = CallsPlan.objects.select_related("calendar").only(
+            "calendar__date_calendar",
+            'employee',
+            'count_calls_avg'
+        ).filter(
             calendar__date_calendar__year=year,
         ).annotate(
             count_calls_avg=models.Avg("count_calls"),
@@ -744,7 +774,12 @@ class RationActiveByDayApiView(views.APIView):
         meetings = get_meetings_by_day(departments, year, month)
 
         # получение списка комментариев
-        comments = Comment.objects.filter(
+        comments = Comment.objects.select_related("recipient").only(
+            "recipient__UF_DEPARTMENT",
+            "recipient__ACTIVE",
+            "recipient__STATUS_DISPLAY",
+            "date_comment"
+        ).filter(
             recipient__UF_DEPARTMENT__in=departments,
             recipient__ACTIVE=True,
             recipient__STATUS_DISPLAY=True,
@@ -757,7 +792,12 @@ class RationActiveByDayApiView(views.APIView):
         )
 
         # получение плана по звонкам
-        calls_plan = CallsPlan.objects.filter(
+        calls_plan = CallsPlan.objects.select_related("calendar").only(
+            "calendar__date_calendar",
+            'employee',
+            'count_calls_avg',
+            'plan_completed'
+        ).filter(
             calendar__date_calendar__year=year,
             calendar__date_calendar__month=month,
         ).values(
